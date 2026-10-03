@@ -1,14 +1,17 @@
 const WHATSAPP = '393935896994';
 
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-/* Skip link is a keyboard action: jump instantly, no smooth scroll. */
-document.querySelector('.skip')?.addEventListener('click', (event) => {
-  const target = document.querySelector(event.currentTarget.hash);
-  if (!target) return;
-  event.preventDefault();
-  target.scrollIntoView({ behavior: 'instant' });
-  target.focus({ preventScroll: true });
+/* In-page links: smooth scroll for taps and clicks (CSS), an instant jump for keyboard
+   activation (event.detail === 0) and for the skip link. Focus follows the jump. */
+document.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    const target = link.hash.length > 1 && document.querySelector(link.hash);
+    if (!target || (event.detail !== 0 && !link.classList.contains('skip'))) return;
+    event.preventDefault();
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.scrollIntoView({ behavior: 'instant' });
+    target.focus({ preventScroll: true });
+    history.replaceState(null, '', link.hash);
+  });
 });
 
 /* Every [data-wa] link opens WhatsApp with its own pre-filled message. */
@@ -18,36 +21,11 @@ document.querySelectorAll('[data-wa]').forEach((link) => {
   link.rel = 'noopener';
 });
 
-/* "Cosa include": height + opacity, interruptible (always starts from the current height). */
+/* "Cosa include": the button owns the state; CSS animates the panel (grid row 0fr -> 1fr). */
 document.querySelectorAll('.include-btn').forEach((button) => {
-  const panel = document.getElementById(button.getAttribute('aria-controls'));
-
-  panel.addEventListener('transitionend', (event) => {
-    if (event.target !== panel || event.propertyName !== 'height') return;
-    if (button.getAttribute('aria-expanded') === 'true') {
-      panel.style.height = 'auto';
-    } else {
-      panel.style.visibility = 'hidden';
-    }
-  });
-
   button.addEventListener('click', () => {
     const open = button.getAttribute('aria-expanded') !== 'true';
     button.setAttribute('aria-expanded', String(open));
-
-    if (reduceMotion.matches) {
-      panel.style.height = open ? 'auto' : '0px';
-      panel.style.opacity = open ? '1' : '0';
-      panel.style.visibility = open ? 'visible' : 'hidden';
-      return;
-    }
-
-    const from = panel.getBoundingClientRect().height;
-    panel.style.visibility = 'visible';
-    panel.style.height = `${from}px`;
-    panel.getBoundingClientRect(); // commit the start height
-    panel.style.height = open ? `${panel.scrollHeight}px` : '0px';
-    panel.style.opacity = open ? '1' : '0';
   });
 });
 

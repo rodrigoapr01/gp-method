@@ -1,3 +1,5 @@
 assets/giorgia-src.png
 .DS_Store
 .claude/
+.playwright-mcp/
+.impeccable/live/

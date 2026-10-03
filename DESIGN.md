@@ -34,24 +34,34 @@ Fonte: `components/NuaHome.tsx`, `NuaHeader.tsx`, `NuaBottomSheet.tsx`, `NuaFoot
 | `--bronzo-scuro` | #5A4535 | CTA piene, testo secondario piccolo | 7.4:1 |
 | `--espresso` | #2A2017 | testo, card Coaching | 13.2:1 |
 
-Un solo elemento metallico: il logo dell'hero (gradiente champagne → bronzo → bronzo scuro). Tutto il resto è piatto.
+Un solo elemento metallico: l'anello attorno alla foto dell'hero (gradiente champagne → bronzo → bronzo scuro). Tutto il resto è piatto. *(v2: prima era il logo grande nell'hero.)*
+
+`--bronzo` è usato anche per il tratto del ciclo (3.9:1, sopra la soglia 3:1 per gli elementi grafici).
 
 ### Tipografia
 - **Cormorant Garamond** 400/500 — titoli, nomi dei livelli, prezzi, le tre parole del metodo. Ha lo stesso taglio a contrasto alto delle lettere del monogramma GP.
 - **Jost** 400/500 — testo, bottoni, etichette. Geometrico come la scritta "METHOD" del logo.
-- Scala (mobile → desktop): H1 32→60px, parole metodo 44→88px, H2 28→40px, testo 16px, piccolo 14px. Interlinea 1.1 sui titoli serif, 1.55 sul testo.
-- Maiuscolo spaziato solo dove è il marchio: GP METHOD, SHAPE/STRENGTH/PERFORMANCE, ESSENTIAL/COACHING/ELITE.
+- **v2 — cinque formati, nient'altro** (variabili in `styles.css`):
+  | Formato | Font | Misura | Uso |
+  | --- | --- | --- | --- |
+  | Display | Cormorant 500 | 34→64px, interlinea 1.06 | H1; con lo stesso carattere: parole del metodo 34→76px, prezzi 52→58px, nomi dei livelli 30px |
+  | Titolo | Cormorant 500 | 30→44px, interlinea 1.1 | H2 |
+  | Corpo | Jost 400/500 | **17px**, interlinea 1.6 | testi, descrizioni, liste, bottoni |
+  | Etichetta | Jost 500 | **13px**, MAIUSCOLO, tracking 0.16em | sottotitolo hero, riga livelli, badge, "/ 6 settimane", numeri 01–04, bottone "Scrivimi", footer |
+  | Prezzo | Cormorant, cifre tabellari | "€" a 0.5em allineato in alto | le tre card |
+- Nessun testo sotto i 16px tranne le etichette (13px maiuscolo, contrasto 7.4:1).
 
 ### Forma e spazio
 - Gutter 20px (mobile) / 48px (≥900px), contenuto max 1120px.
 - Raggi: pillola 999px per i bottoni; 20px per le card dei livelli. Nessuna ombra.
-- Sezioni 72px (mobile) / 120px (desktop).
+- Sezioni 88px (mobile) / 104px (tablet) / 128px (desktop).
 - Aree di tocco ≥ 44px; CTA 52px.
 
 ### Motion
 - `--ease-out: cubic-bezier(0.23, 1, 0.32, 1)`.
-- Unico momento orchestrato: entrata del logo hero (cerchio + monogramma) al caricamento, CSS animation, opacity + transform.
-- "Cosa include": altezza + opacità, 220ms, interrompibile (transition, non keyframes), "+" che ruota di 45°.
+- Unico momento orchestrato: entrata dell'anello metallico dell'hero al caricamento (opacity + scale 0.96 + rotate −10°, 700ms, una volta).
+- "Cosa include": `grid-template-rows` 0fr → 1fr + opacità, 220ms, interrompibile (transition, non keyframes), nessuna misura in JS; "+" che ruota di 45°.
+- Link interni: scorrimento morbido al tocco/clic, salto istantaneo da tastiera.
 - Bottoni: `scale(0.97)` su `:active`, 160ms.
 - Bottone WhatsApp mobile: entra/esce con translateY + opacity, 220ms.
 - Nessuno scroll-reveal. Tutto il testo è visibile senza JS. `prefers-reduced-motion`: nessuna animazione.
@@ -59,13 +69,28 @@ Un solo elemento metallico: il logo dell'hero (gradiente champagne → bronzo �
 ## 3. L'idea che rende la pagina sua
 
 Il **cerchio** del logo diventa il linguaggio della pagina:
-1. Nell'hero è il logo metallico.
-2. In "Come funziona" lo stesso cerchio, piatto e champagne, diventa il **ciclo di 6 settimane**: quattro parole sui quattro punti cardinali (Assess, Build, Perform, Review). È davvero un ciclo, quindi la forma circolare è informazione, non decorazione. Su mobile si legge in senso orario.
-3. Nella foto di "Chi sono" il ritaglio è un arco (mezzo cerchio in alto).
+1. Nell'hero è l'anello metallico che incornicia la foto ad arco di Giorgia.
+2. In "Come funziona" lo stesso cerchio, piatto e in bronzo, diventa il **ciclo di 6 settimane**: fasi numerate 01–04, inizio (punto) e fine (freccia) visibili in alto, monogramma GP piatto al centro.
+3. "Chi sono" non ha foto (la persona è già nell'hero): la frase è centrata, come una firma.
 
 Tutto il resto è quieto: niente card-kit, niente icone decorative, niente gradienti.
 
-## 4. Wireframe
+## 3b. v2 — "Ritratto e filetto" (ottobre 2026)
+
+La v1 presentava un logo; un coaching personale deve presentare una persona. Testi, prezzi, link WhatsApp e ordine delle sezioni sono invariati.
+
+| Sezione | v1 | v2 |
+| --- | --- | --- |
+| Hero | Logo grande nel cerchio, testo centrato | Foto ad arco (36svh mobile, 72svh desktop) con anello metallico; mobile: testo sotto, centrato; desktop: testo a destra, a sinistra. Riga "Essential · Coaching · Elite" (etichetta, tre link alle card) |
+| Foto | JPG 1400px, sfondo grigio freddo | `tools/export-hero.py`: ritaglio 4:5, viraggio caldo solo sui pixel neutri (pelle intatta), AVIF/WebP/JPG a 480/800/1200 |
+| Metodo | Parole 104px, descrizioni 17px spinte a destra | Parole 34→76px; desktop 7fr/5fr con la descrizione sulla linea di base |
+| Ciclo | Cerchio 1px champagne | Tratto bronzo con inizio/fine, numeri 01–04, monogramma al centro |
+| Livelli | Altezze diverse, Coaching sfalsata | `subgrid`: stessa altezza, righe e bottoni allineati; spazio badge riservato; Elite con bordo bronzo + filetto champagne interno a 6px |
+| Chi sono | Arco a sinistra, metà destra vuota | Frase centrata + @lapiras93 |
+
+**Per cambiare la foto dell'hero:** `python3 tools/export-hero.py <nuova-foto> [left top width]` rigenera i 9 file in `assets/img/` con gli stessi nomi; nessuna modifica al codice.
+
+## 4. Wireframe (v1, struttura invariata; hero aggiornato in 3b)
 
 ### Mobile (390px)
 ```
