@@ -3,3 +3,6 @@ assets/giorgia-src.png
 .claude/
 .playwright-mcp/
 .impeccable/live/
+gp-method-media/
+screenshots/
+*.mp4
