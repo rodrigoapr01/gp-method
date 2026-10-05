@@ -1,53 +1,110 @@
+/* GP METHOD v4 */
+
 const WHATSAPP = '393935896994';
 
-/* In-page links: smooth scroll for taps and clicks (CSS), an instant jump for keyboard
-   activation (event.detail === 0) and for the skip link. Focus follows the jump. */
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-  link.addEventListener('click', (event) => {
-    const target = link.hash.length > 1 && document.querySelector(link.hash);
-    if (!target || (event.detail !== 0 && !link.classList.contains('skip'))) return;
-    event.preventDefault();
-    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-    target.scrollIntoView({ behavior: 'instant' });
-    target.focus({ preventScroll: true });
-    history.replaceState(null, '', link.hash);
-  });
-});
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* Every [data-wa] link opens WhatsApp with its own pre-filled message. */
+/* ---------- WhatsApp: one number, every button names its level or page ---------- */
+
 document.querySelectorAll('[data-wa]').forEach((link) => {
   link.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(link.dataset.wa)}`;
   link.target = '_blank';
   link.rel = 'noopener';
 });
 
-/* "Cosa include": the button owns the state; CSS animates the panel (grid row 0fr -> 1fr). */
-document.querySelectorAll('.include-btn').forEach((button) => {
-  button.addEventListener('click', () => {
-    const open = button.getAttribute('aria-expanded') !== 'true';
-    button.setAttribute('aria-expanded', String(open));
+/* ---------- Full-screen menu (phones): a modal dialog = focus trap + Esc for free ---------- */
+
+const menu = document.getElementById('menu');
+const menuBtn = document.querySelector('.menu-btn');
+if (menu && menuBtn) {
+  menuBtn.addEventListener('click', () => {
+    menu.showModal();
+    menuBtn.setAttribute('aria-expanded', 'true');
+  });
+  menu.addEventListener('close', () => {
+    menuBtn.setAttribute('aria-expanded', 'false');
+    menuBtn.focus();
+  });
+  menu.querySelector('.menu-close').addEventListener('click', () => menu.close());
+  // a link to a section of this page: close the menu first so the page can scroll
+  menu.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => menu.close()));
+}
+
+/* ---------- "Cosa include": the button owns the state, CSS animates the panel ---------- */
+
+document.querySelectorAll('.include-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    btn.setAttribute('aria-expanded', String(btn.getAttribute('aria-expanded') !== 'true'));
   });
 });
 
-/* Mobile WhatsApp button: only after the hero; steps aside when another WhatsApp button is on screen. */
-const fab = document.querySelector('.fab');
-const hero = document.querySelector('.hero');
-const closing = document.querySelector('.closing');
-const footer = document.querySelector('.foot');
+/* ---------- Neon: the glow switches on once when the USP comes into view.
+   Only the glow layer flickers; the words are readable from the start. ---------- */
 
-if (fab && 'IntersectionObserver' in window) {
-  const inView = new Map();
-  const update = () => {
-    const show = [...inView.values()].every((visible) => !visible);
-    fab.classList.toggle('is-visible', show);
-  };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => inView.set(entry.target, entry.isIntersecting));
-    update();
-  }, { threshold: 0 });
-  const levelButtons = document.querySelectorAll('.level .btn');
-  [hero, closing, footer, ...levelButtons].forEach((el) => {
-    inView.set(el, el === hero);
-    observer.observe(el);
+const neon = document.querySelector('[data-neon]');
+if (neon && !reduceMotion && 'IntersectionObserver' in window) {
+  neon.classList.add('neon-wait');
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      neon.classList.add('is-lit');
+      io.disconnect();
+    }
+  }, { threshold: 0.5 });
+  io.observe(neon);
+}
+
+/* ---------- Gallery: tap = large view; close with X, Esc, tap outside or swipe down ---------- */
+
+const lightbox = document.querySelector('.lightbox');
+if (lightbox) {
+  const img = lightbox.querySelector('.lightbox-img');
+  let opener = null;
+  document.querySelectorAll('.tile').forEach((tile) => {
+    tile.addEventListener('click', () => {
+      opener = tile;
+      img.src = tile.dataset.full;
+      img.alt = tile.dataset.alt;
+      img.style.transform = '';
+      lightbox.showModal();
+    });
   });
+  lightbox.addEventListener('close', () => opener?.focus());
+  lightbox.querySelector('.lightbox-close').addEventListener('click', () => lightbox.close());
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.close(); });
+
+  // swipe down: the photo follows the finger; past 120px or a fast flick it closes
+  let startY = null; let startT = 0; let dy = 0;
+  img.addEventListener('pointerdown', (e) => {
+    if (startY !== null) return; // ignore a second finger
+    startY = e.clientY; startT = performance.now(); dy = 0;
+    img.setPointerCapture(e.pointerId);
+  });
+  img.addEventListener('pointermove', (e) => {
+    if (startY === null) return;
+    dy = e.clientY - startY;
+    img.style.transform = `translateY(${dy > 0 ? dy : dy * 0.2}px)`; // upwards: friction, not a wall
+  });
+  const end = () => {
+    if (startY === null) return;
+    const velocity = Math.abs(dy) / (performance.now() - startT);
+    startY = null;
+    if (dy > 120 || (dy > 20 && velocity > 0.11)) lightbox.close();
+    img.style.transform = '';
+  };
+  img.addEventListener('pointerup', end);
+  img.addEventListener('pointercancel', end);
+}
+
+/* ---------- WhatsApp fixed button (phones): after the hero, never next to another WhatsApp button ---------- */
+
+const fab = document.querySelector('.fab');
+if (fab && 'IntersectionObserver' in window) {
+  const first = document.querySelector('.hero, .intro');
+  const others = [...document.querySelectorAll('main [data-wa], .foot')];
+  const state = new Map([[first, true], ...others.map((el) => [el, false])]);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => state.set(e.target, e.isIntersecting));
+    fab.classList.toggle('is-visible', [...state.values()].every((v) => !v));
+  });
+  [first, ...others].forEach((el) => el && io.observe(el));
 }
