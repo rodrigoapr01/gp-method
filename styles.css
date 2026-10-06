@@ -153,7 +153,9 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   content: ''; position: absolute; inset: 0; z-index: -1;
   background: linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0.12) 30%, rgba(25, 23, 22, 0.78) 62%, var(--nero) 100%);
 }
-.hero-copy { display: grid; gap: 16px; justify-items: start; max-width: 680px; }
+.hero-copy { position: relative; z-index: 1; display: grid; gap: 16px; justify-items: start; max-width: 680px; }
+/* floating equipment (assets/hero-3d.js): over the photo, under the copy; vertical swipes still scroll the page */
+.hero-scene { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; touch-action: pan-y; pointer-events: none; }
 .hero h1 { max-width: 13ch; }
 .hero-sub { font-size: 18px; color: var(--pietra-2); max-width: 30ch; }
 .hero .btn { margin-top: 8px; }

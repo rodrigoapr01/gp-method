@@ -28,6 +28,10 @@ def wa_btn(msg, label, cls="btn btn--primary"):
     return f'<a class="{cls}" data-wa="{msg}" href="#contatti">{WA_ICON}<span>{label}</span></a>'
 
 
+HERO_3D = """  <script src="assets/hero-3d.js" defer></script>
+"""
+
+
 def page(file, title, desc, body, wa_msg, extra_head="", home=False):
     nav = [("index.html#metodo", "Metodo"), ("livelli.html", "Livelli"), ("chi-sono.html", "Chi sono")]
     current = {"livelli.html": "Livelli", "chi-sono.html": "Chi sono"}.get(file)
@@ -63,7 +67,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js')</script>
   <script src="main.js" defer></script>
-{extra_head}</head>
+{HERO_3D if home else ''}{extra_head}</head>
 <body class="{'is-home' if home else 'is-inner'}">
   <a class="skip" href="#main">Vai al contenuto</a>
   <header class="top">
@@ -108,6 +112,7 @@ def steps(cls=""):
 # ---------------------------------------------------------------- home
 home = f"""    <section class="hero" aria-labelledby="hero-title">
       {pic('neon-stronger-manubri', "Insegna al neon Be stronger than your excuses sopra la rastrelliera dei manubri della palestra Weal House", cls='hero-photo', eager=True)}
+      <canvas class="hero-scene" aria-hidden="true"></canvas>
       <div class="hero-copy">
         <p class="kicker" lang="en">Online coaching by Giorgia Piras</p>
         <h1 id="hero-title">Non allenarti solo per cambiare il tuo corpo.</h1>
