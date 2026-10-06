@@ -1,9 +1,8 @@
 """Writes index.html, livelli.html and chi-sono.html (static output, committed).
-Shared header, menu, footer and the inline logo live here once. Run: python3 tools/build-pages.py"""
+Shared header, menu and footer live here once; the official logo files are used as they are. Run: python3 tools/build-pages.py"""
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-LOGO = (ROOT / "assets/img/_logo-paths.txt").read_text()
 BASE = "https://rodrigoapr01.github.io/gp-method/"
 
 WA_ICON = ('<svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
@@ -12,9 +11,16 @@ WA_ICON = ('<svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="
            '<path fill="currentColor" d="M9.1 7.9c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.3l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5a5.6 5.6 0 0 0 2.6 2.3c.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.5-.1l1.6.8c.2.1.3.2.3.3v.5c0 .5-.4 1.1-1 1.3-.6.3-1.6.3-3-.3a8.6 8.6 0 0 1-3.7-3.5c-.7-1.2-.6-2.3-.2-3.2z"/></svg>')
 
 
-def logo(cls, label=True):
-    aria = 'role="img" aria-label="GP METHOD"' if label else 'aria-hidden="true" focusable="false"'
-    return f'<svg class="{cls}" viewBox="300 244 403 499" {aria}><g fill="currentColor">{LOGO}</g></svg>'
+# official logo (assets/brand/lineare), never redrawn or recoloured.
+# The full logo with the circle is only used at 160px or wider: below that its small lettering is unreadable.
+BRAND = "assets/brand/lineare"
+LOGO_FULL = f"{BRAND}/svg/GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg"
+MONOGRAM = f"{BRAND}/svg/GP-monogramma-lineare_pietra.svg"
+
+
+def logo_full(cls, size, eager=False):
+    load = "" if eager else ' loading="lazy"'
+    return f'<img class="{cls}" src="{LOGO_FULL}" width="{size}" height="{size}" alt="GP METHOD"{load} decoding="async">'
 
 
 def pic(name, alt, w=1086, h=1448, cls="", eager=False, sizes="100vw"):
@@ -56,11 +62,11 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
   <meta property="og:image" content="{BASE}assets/img/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Logo GP METHOD accanto all'insegna al neon Be stronger than your excuses della palestra">
+  <meta property="og:image:alt" content="GP METHOD">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
-  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="icon" href="{BRAND}/svg/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{BRAND}/png/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="{BRAND}/png/favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500;600&display=swap">
@@ -71,7 +77,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
 <body class="{'is-home' if home else 'is-inner'}">
   <a class="skip" href="#main">Vai al contenuto</a>
   <header class="top">
-    <a class="brand" href="index.html" aria-label="GP METHOD, home">{logo('brand-logo', label=False)}</a>
+    <a class="brand" href="index.html" aria-label="GP METHOD"><img class="brand-mono" src="{MONOGRAM}" width="44" height="36" alt="GP METHOD"><span class="brand-name" aria-hidden="true">GP METHOD</span></a>
     <nav class="top-nav" aria-label="Principale">{links}</nav>
     {wa_btn(wa_msg, 'Scrivimi', 'btn btn--secondary btn--sm top-wa')}
     <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu" aria-label="Apri il menu"><span></span><span></span></button>
@@ -88,7 +94,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
   </main>
 
   <footer class="foot" id="contatti">
-    <a class="foot-brand" href="index.html" aria-label="GP METHOD, home">{logo('foot-logo', label=False)}</a>
+    <a class="foot-brand" href="index.html" aria-label="GP METHOD">{logo_full('foot-logo', 180)}</a>
     <nav class="foot-nav" aria-label="Pagine">{links}<a href="https://www.instagram.com/lapiras93/" target="_blank" rel="noopener">Instagram</a></nav>
     <p class="foot-address">Weal House, Via Michele Amari 51, Roma</p>
     {wa_btn(wa_msg, 'Scrivimi su WhatsApp', 'btn btn--secondary')}
@@ -114,6 +120,7 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
       {pic('neon-stronger-manubri', "Insegna al neon Be stronger than your excuses sopra la rastrelliera dei manubri della palestra Weal House", cls='hero-photo', eager=True)}
       <canvas class="hero-scene" aria-hidden="true"></canvas>
       <div class="hero-copy">
+        {logo_full('hero-logo', 340, eager=True)}
         <p class="kicker" lang="en">Online coaching by Giorgia Piras</p>
         <h1 id="hero-title">Non allenarti solo per cambiare il tuo corpo.</h1>
         <p class="hero-sub">Allenalo per renderlo forte, performante e capace.</p>

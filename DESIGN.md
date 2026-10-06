@@ -34,6 +34,14 @@ Tipografia: **Cormorant Garamond** 500 per titoli e numeri (è il carattere di M
 Forma: bottoni a pillola 52px (primario pietra/nero, secondario bordo bronzo/testo pietra); card e foto con raggio 14px; filetti 1px bronzo.
 Motion (solo 3): accensione dei neon USP (~600ms, una volta), "Cosa include" (altezza + opacità, 220ms, `cubic-bezier(0.23,1,0.32,1)`), `scale(0.97)` su :active (160ms). Nessuno scroll-reveal; tutto il testo visibile senza JS.
 
+## 2b. Logo ufficiale (assets/brand/lineare, approvato dalla cliente)
+File usati così come sono, mai ridisegnati né ricolorati.
+- Header (tutte le pagine): monogramma `svg/GP-monogramma-lineare_pietra.svg` alto 36px + "GP METHOD"; sotto 360px solo il monogramma.
+- Hero home: logo con cerchio `svg/GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg`, 240px mobile / 340px desktop.
+- Footer: stesso logo con cerchio, 180px.
+- Regola: il logo con cerchio mai sotto i 160px; sotto si usa il monogramma.
+- Favicon: `svg/favicon.svg`, `png/favicon-32.png`, `png/favicon-180.png`. OG: `png/GP-METHOD-lineare_con-cerchio_scuro.png` centrato su #191716 (`tools/build-assets.py`).
+
 ## 3. Elemento firma: il neon
 Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, riempite, bagliore freddo) alternate a parole rosse spesse e contornate (Jost 600 maiuscolo, `-webkit-text-stroke`, riempimento trasparente, bagliore rosso). Un solo punto: la USP della home. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).
 

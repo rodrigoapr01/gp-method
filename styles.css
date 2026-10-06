@@ -105,8 +105,13 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   display: flex; align-items: center; gap: 12px;
   padding: calc(env(safe-area-inset-top, 0px) + 12px) max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
 }
-.brand { display: grid; place-items: center; min-width: 44px; min-height: 44px; color: var(--pietra); margin-right: auto; }
-.brand-logo { width: auto; height: 50px; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 44px; min-height: 44px; color: var(--pietra); margin-right: auto; text-decoration: none; }
+/* header: the circle logo would be under 160px here, so the monogram + the name */
+.brand-mono { width: auto; height: 36px; }
+.brand-name { font-size: 13px; font-weight: 500; letter-spacing: 0.22em; white-space: nowrap; }
+.top-wa, .menu-btn { flex-shrink: 0; }
+/* the smallest phones have no room for the name next to "Scrivimi" and the menu: the monogram alone (the link still says GP METHOD) */
+@media (max-width: 359px) { .brand-name { display: none; } }
 .top-nav { display: none; }
 .top-wa { display: inline-flex; }
 .menu-btn {
@@ -159,6 +164,15 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .hero h1 { max-width: 13ch; }
 .hero-sub { font-size: 18px; color: var(--pietra-2); max-width: 30ch; }
 .hero .btn { margin-top: 8px; }
+/* official logo with circle: its file has 10% empty margin around the circle, pulled back so the circle lines up with the text */
+.hero-logo { width: 240px; height: auto; margin: -24px 0 -16px -24px; }
+/* phones: the logo + copy start under the neon sign; the photo and its veil keep one screen's height, the rest is nero */
+@media (max-width: 899px) {
+  .hero { padding-top: 34vh; padding-top: 34svh; }
+  .hero picture, .hero::before { bottom: auto; height: 100vh; height: 100svh; }
+  /* darker under the sign, so the logo's small lettering reads over the dumbbell rack */
+  .hero::before { background: linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0.12) 26%, rgba(25, 23, 22, 0.72) 38%, rgba(25, 23, 22, 0.86) 62%, var(--nero) 100%); }
+}
 
 /* ---------- Home: USP with the neon (the one signature moment) ---------- */
 
@@ -354,7 +368,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   border-top: 1px solid var(--bronzo);
 }
 .foot-brand { color: var(--pietra); }
-.foot-logo { width: auto; height: 96px; }
+.foot-logo { width: 180px; height: auto; margin: -18px 0 -18px -18px; } /* 10% empty margin in the file */
 .foot-nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .foot-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; text-decoration: none; }
 .foot-address { color: var(--pietra-2); }
@@ -401,11 +415,11 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .top-nav { display: flex; gap: 6px; margin-right: 12px; }
   .top-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; text-decoration: none; font-size: 15px; letter-spacing: 0.04em; }
   .top-nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--bronzo); }
-  .brand-logo { height: 60px; }
 
-  .hero { padding: 140px max(var(--gutter), calc((100% - var(--max)) / 2)) 96px; align-content: center; }
+  .hero { padding: 104px max(var(--gutter), calc((100% - var(--max)) / 2)) 56px; align-content: center; }
   .hero picture { left: auto; width: 60%; }
   .hero-photo { object-position: 50% 10%; }
+  .hero-logo { width: 340px; margin: -34px 0 -24px -34px; }
   .hero::before { background: linear-gradient(90deg, var(--nero) 40%, rgba(25, 23, 22, 0.55) 52%, rgba(25, 23, 22, 0) 72%), linear-gradient(0deg, var(--nero) 0%, rgba(25, 23, 22, 0) 22%); }
   .hero h1 { font-size: clamp(48px, 4.6vw, 72px); max-width: 14ch; }
   .hero-copy { max-width: 36%; }

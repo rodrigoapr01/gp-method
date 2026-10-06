@@ -94,7 +94,7 @@
 
     // where the neon sign sits in the photo (fractions of the image): kept clear like the copy
     // phones: just the letters, so objects can frame the sign from the sides; wider screens: some air around it
-    const SIGN_PHONE = { x0: 0.25, y0: 0.05, x1: 0.69, y1: 0.36 };
+    const SIGN_PHONE = { x0: 0.24, y0: 0.05, x1: 0.72, y1: 0.36 };
     const SIGN_WIDE = { x0: 0.18, y0: 0.04, x1: 0.76, y1: 0.37 };
     const photo = hero.querySelector('.hero-photo');
     let zones = [];
@@ -102,6 +102,9 @@
       const h = hero.getBoundingClientRect(); const r = copy.getBoundingClientRect();
       const pad = 24;
       zones = [{ x0: r.left - h.left - pad, y0: r.top - h.top - pad, x1: r.right - h.left + pad, y1: r.bottom - h.top + pad }];
+      // the header (logo, Scrivimi, menu) sits over the hero: keep it clear as well
+      const top = document.querySelector('.top');
+      if (top) { const t = top.getBoundingClientRect(); zones.push({ x0: -1e4, y0: -1e4, x1: 1e4, y1: t.bottom - h.top + 4 }); }
       if (photo && photo.naturalWidth) {
         // object-fit: cover maths, with the photo's own object-position
         const b = photo.getBoundingClientRect();
