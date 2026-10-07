@@ -32,7 +32,7 @@ Luce neon (solo nelle scritte LED): rosso #FF3B2F, bianco #F4F7F6, resa con `tex
 
 Tipografia: **Cormorant Garamond** 500 per titoli e numeri (è il carattere di METHOD nel logo), **Jost** 300-600 per testo, interfaccia e neon. Corpo 17px, etichette 13px maiuscole.
 Forma: bottoni a pillola 52px (primario pietra/nero, secondario bordo bronzo/testo pietra); card e foto con raggio 14px; filetti 1px bronzo.
-Motion: accensione dei neon USP (~600ms, una volta), poi la riga rossa "ronza" (cali ogni 7s, mai spenta) e fa un glitch di 1s al passaggio del mouse o al tocco (max 3 lampi/s, WCAG 2.3.1), "Cosa include" (altezza + opacità, 220ms, `cubic-bezier(0.23,1,0.32,1)`), `scale(0.97)` su :active (160ms). Nessuno scroll-reveal; tutto il testo visibile senza JS.
+Motion: accensione dei neon USP (~600ms, una volta), poi la riga rossa "ronza" (tre cali ogni 4,5s, mai spenta) e fa un glitch di 1s al passaggio del mouse, al tocco e, sui telefoni, ogni volta che entra nello schermo (max 3 lampi/s, WCAG 2.3.1); i pilastri del metodo si aprono come "Cosa include" (stessa transizione 220ms); le tappe del ciclo mostrano una riga sotto (nessuna animazione), "Cosa include" (altezza + opacità, 220ms, `cubic-bezier(0.23,1,0.32,1)`), `scale(0.97)` su :active (160ms). Nessuno scroll-reveal; tutto il testo visibile senza JS.
 
 ## 2a. Hero (ottobre 2026)
 Foto di Giorgia a Weal House (`assets/hero/`): 5:4 sotto 768px, 4:3 da 768px; WebP q82 con versioni leggere (900w / 1280w), JPG di riserva, `fetchpriority="high"` (è l'LCP).
@@ -46,6 +46,11 @@ File usati così come sono, mai ridisegnati né ricolorati.
 - Footer: stesso logo con cerchio, 180px.
 - Regola: il logo con cerchio mai sotto i 160px; sotto si usa il monogramma.
 - Favicon: `svg/favicon.svg`, `png/favicon-32.png`, `png/favicon-180.png`. OG: `png/GP-METHOD-lineare_con-cerchio_scuro.png` centrato su #191716 (`tools/build-assets.py`).
+
+## 2c. Approfondimenti (ottobre 2026)
+- Metodo: ogni pilastro (Shape, Strength, Performance) è un bottone che apre una riga di dettaglio.
+- Ciclo di 6 settimane (home) e Il percorso (livelli): ogni tappa è un bottone; la riga sotto cambia. Su livelli la riga di Assess sostituisce la vecchia nota.
+- I testi riusano solo fatti già sul sito (nota sul percorso e liste "Cosa include"): da far confermare a Giorgia.
 
 ## 3. Elemento firma: il neon
 Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, riempite, bagliore freddo) alternate a parole rosse spesse e contornate (Jost 600 maiuscolo, `-webkit-text-stroke`, riempimento trasparente, bagliore rosso). Un solo punto: la USP della home, che dall'ottobre 2026 è solo la frase "Non devi scegliere / tra estetica / e performance." resa come l'insegna "Be stronger than your excuses" (bianco, rosso a tubo, bianco), centrata; le tre righe inglesi BUILD/DEVELOP/ELEVATE sono state tolte. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).

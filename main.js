@@ -30,11 +30,23 @@ if (menu && menuBtn) {
   menu.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => menu.close()));
 }
 
-/* ---------- "Cosa include": the button owns the state, CSS animates the panel ---------- */
+/* ---------- "Cosa include" and the method pillars: the button owns the state, CSS animates the panel ---------- */
 
-document.querySelectorAll('.include-btn').forEach((btn) => {
+document.querySelectorAll('.include-btn, .pillar-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     btn.setAttribute('aria-expanded', String(btn.getAttribute('aria-expanded') !== 'true'));
+  });
+});
+
+/* ---------- The cycle: tap a stage, its line shows under the row ---------- */
+
+document.querySelectorAll('[data-steps]').forEach((wrap) => {
+  const note = wrap.querySelector('.step-note');
+  wrap.querySelectorAll('.step').forEach((step) => {
+    step.addEventListener('click', () => {
+      wrap.querySelectorAll('.step').forEach((s) => s.setAttribute('aria-pressed', String(s === step)));
+      note.textContent = step.dataset.note;
+    });
   });
 });
 
@@ -63,6 +75,12 @@ if (redTube && !reduceMotion) {
   };
   neon.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') glitch(); });
   neon.addEventListener('pointerdown', glitch, { passive: true });
+  // phones have no hover: the sign glitches by itself each time it scrolls into view
+  if (window.matchMedia('(hover: none)').matches && 'IntersectionObserver' in window) {
+    new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) setTimeout(glitch, 900);
+    }, { threshold: 0.6 }).observe(neon);
+  }
 }
 
 /* ---------- Gallery: tap = large view; close with X, Esc, tap outside or swipe down ---------- */

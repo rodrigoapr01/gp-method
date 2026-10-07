@@ -103,14 +103,42 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
     (ROOT / file).write_text(html)
 
 
-def steps(cls=""):
-    items = ["Assess", "Build", "Perform", "Review"]
-    lis = "".join(f'<li><span class="step-n" aria-hidden="true">{i}</span><span class="step-w" lang="en">{w}</span></li>'
-                  for i, w in enumerate(items, 1))
-    return f'<ol class="steps {cls}">{lis}</ol>'
+# the four stages of a cycle; tapping one shows its line under the row.
+# Lines only reuse facts already on the site (the path note and the "Cosa include" lists): to be confirmed by Giorgia.
+STEPS = [
+    ("Assess", "Livello, obiettivo, disponibilità, attrezzatura e capacità vengono valutati prima di costruire la programmazione."),
+    ("Build", "La programmazione prende forma sulle tue giornate, con progressioni dalla Week 1 alla Week 6."),
+    ("Perform", "Ti alleni con RPE e indicazioni sui carichi; con Coaching ed Elite arrivano anche check e analisi dei video."),
+    ("Review", "A fine ciclo il check finale: Review con Coaching, GP Performance Review con Elite."),
+]
+
+
+def steps(cls="", uid="cycle"):
+    lis = "".join(
+        f'<li><button class="step" type="button" aria-pressed="{"true" if i == 1 else "false"}" aria-controls="{uid}-note" data-note="{note}">'
+        f'<span class="step-n" aria-hidden="true">{i}</span><span class="step-w" lang="en">{w}</span></button></li>'
+        for i, (w, note) in enumerate(STEPS, 1))
+    return (f'<div class="steps-wrap" data-steps><ol class="steps {cls}">{lis}</ol>'
+            f'<p class="step-note" id="{uid}-note" aria-live="polite">{STEPS[0][1]}</p></div>')
 
 
 # ---------------------------------------------------------------- home
+# Detail lines reuse what the levels already include (warm-up, video library, Week 1-6, RPE, conditioning, cardio): to be confirmed by Giorgia.
+PILLARS = [
+    ("shape", "Shape", "Costruzione muscolare e proporzioni",
+     "Lavoro mirato per costruire muscolo e migliorare le proporzioni, con warm-up specifici e i video degli esercizi per eseguirli bene."),
+    ("strength", "Strength", "Forza e progressioni",
+     "Progressioni dalla Week 1 alla Week 6, con RPE e indicazioni sui carichi: sai sempre quanto spingere e quando aumentare."),
+    ("performance", "Performance", "Running, conditioning, Hybrid/HYROX",
+     "Conditioning e linee guida cardio dentro la stessa programmazione, per allenare anche fiato e capacità di lavoro."),
+]
+pillars = "".join(
+    f'<li><button class="pillar-btn" type="button" aria-expanded="false" aria-controls="m-{key}">'
+    f'<span class="pillar-word" lang="en">{word}</span><span class="pillar-line">{line}<span class="plus" aria-hidden="true"></span></span></button>'
+    f'<div class="more-panel" id="m-{key}"><div><p>{detail}</p></div></div></li>'
+    for key, word, line, detail in PILLARS)
+
+
 home = f"""    <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="kicker" lang="en">Online coaching</p>
@@ -140,11 +168,7 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
 
     <section class="method light" id="metodo" aria-labelledby="method-title">
       <h2 id="method-title" class="sr-only">Il metodo</h2>
-      <ul class="pillars" role="list">
-        <li><span class="pillar-word" lang="en">Shape</span><span class="pillar-line">Costruzione muscolare e proporzioni</span></li>
-        <li><span class="pillar-word" lang="en">Strength</span><span class="pillar-line">Forza e progressioni</span></li>
-        <li><span class="pillar-word" lang="en">Performance</span><span class="pillar-line">Running, conditioning, Hybrid/HYROX</span></li>
-      </ul>
+      <ul class="pillars" role="list">{pillars}</ul>
       <p class="method-close">Ogni percorso parte da te.</p>
     </section>
 
@@ -229,8 +253,7 @@ livelli = f"""    <section class="intro" aria-labelledby="levels-title">
 
     <section class="path light" aria-labelledby="path-title">
       <h2 id="path-title" class="title">Il percorso</h2>
-      {steps('steps--dark')}
-      <p class="path-note">Livello, obiettivo, disponibilità, attrezzatura e capacità vengono valutati prima di costruire la programmazione.</p>
+      {steps('steps--dark', uid='path')}
     </section>
 
     <section class="close" aria-labelledby="close-title">
