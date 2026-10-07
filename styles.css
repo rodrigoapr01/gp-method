@@ -158,7 +158,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .hero-role { display: block; margin-top: clamp(22px, 4.6vw, 44px); font-family: var(--sans); font-size: 15px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; line-height: 1.4; }
 .hero-rule { display: block; width: 56px; height: 1px; background: var(--bronzo); }
 .hero-line { margin: 0; max-width: 34ch; font-size: 18px; line-height: 1.55; color: var(--pietra-2); }
-.hero .btn { margin-top: 6px; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 6px; }
 .hero-proof { margin: 14px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; letter-spacing: 0.02em; color: var(--pietra-2); }
 .hero-proof strong { font-weight: 500; color: var(--pietra); }
 
@@ -312,6 +312,21 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 
 /* ---------- Closing CTA ---------- */
 
+/* ---------- WhatsApp nudge under the cycle ---------- */
+
+.ask { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; padding-top: 28px; border-top: 1px solid var(--line); }
+.ask-q { font-family: var(--serif); font-size: clamp(24px, 6vw, 32px); line-height: 1.15; }
+
+/* ---------- Reviews: Weal House on Google ---------- */
+
+.reviews { display: grid; justify-items: start; gap: 14px; padding: var(--section) var(--gutter); }
+.stars { display: flex; gap: 6px; }
+.stars svg { width: 26px; height: 26px; fill: var(--bronzo); }
+.reviews .title { margin-top: 6px; }
+.reviews-sub { max-width: 40ch; font-size: 17px; color: var(--nero-2); }
+.reviews-ask { margin-top: 18px; font-size: 18px; font-weight: 500; }
+.reviews-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 6px; }
+
 .close { display: grid; justify-items: start; gap: 24px; padding: var(--section) var(--gutter); }
 
 /* ---------- Inner pages: intro ---------- */
@@ -409,7 +424,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .foot-credit { font-size: 14px; color: var(--pietra-2); }
 .foot-credit a { display: inline-flex; align-items: center; min-height: 44px; }
 
-/* ---------- WhatsApp fixed button (phones, after the hero) ---------- */
+/* ---------- WhatsApp fixed button (after the hero; full width on phones, a pill bottom-right on desktop) ---------- */
 
 .fab {
   position: fixed; z-index: 30;
@@ -475,7 +490,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .pillar-word { font-size: clamp(56px, 6.4vw, 96px); }
   .pillar-line { font-size: 18px; }
   /* one content width for every section: equal side margins, everything left-aligned */
-  .usp, .method, .preview, .cycle, .path, .who, .gallery-sec, .map, .close, .intro, .cards, .place-copy, .foot {
+  .usp, .method, .preview, .cycle, .path, .who, .gallery-sec, .map, .reviews, .close, .intro, .cards, .place-copy, .foot {
     padding-left: max(var(--gutter), calc((100% - var(--max)) / 2));
     padding-right: max(var(--gutter), calc((100% - var(--max)) / 2));
   }
@@ -519,7 +534,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .foot-address { grid-column: 2; }
   .foot .btn { grid-column: 3; grid-row: 1 / span 2; }
   .foot-credit { grid-column: 1 / -1; }
-  .fab { display: none !important; }
+  .fab { left: auto; right: 32px; bottom: 32px; padding: 0 24px; box-shadow: 0 8px 24px rgba(25, 23, 22, 0.35); }
 }
 
 /* ---------- Reduced motion: nothing moves, the neon is simply on ---------- */

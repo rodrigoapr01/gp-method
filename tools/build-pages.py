@@ -96,7 +96,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
     <p class="foot-credit">Sito realizzato da <a href="https://transiva.it" target="_blank" rel="noopener">Transiva</a></p>
   </footer>
 
-  {wa_btn(wa_msg, 'Scrivimi', 'fab')}
+  {wa_btn(wa_msg, 'Scrivi a Giorgia', 'fab')}
 </body>
 </html>
 """
@@ -122,6 +122,24 @@ def steps(cls="", uid="cycle"):
             f'<p class="step-note" id="{uid}-note" aria-live="polite">{STEPS[0][1]}</p></div>')
 
 
+# Weal House on Google Maps: 5,0 out of 5 (22 reviews, checked 7 Oct 2026). Static: update by hand if the rating changes.
+GOOGLE_PLACE = "https://www.google.com/maps?cid=5456743492543164649"
+STAR = '<svg viewBox="0 0 24 24" focusable="false"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z"/></svg>'
+
+
+def reviews(page_key):
+    return f'''    <section class="reviews light" aria-labelledby="reviews-{page_key}">
+      <p class="stars" role="img" aria-label="5 stelle su 5">{STAR * 5}</p>
+      <h2 id="reviews-{page_key}" class="title">5 su 5 su Google.</h2>
+      <p class="reviews-sub">Le recensioni di Weal House, la palestra dove nasce GP METHOD.</p>
+      <p class="reviews-ask">Ti alleni con Giorgia? Lascia la tua recensione.</p>
+      <div class="reviews-actions">
+        <a class="btn btn--dark" href="{GOOGLE_PLACE}" target="_blank" rel="noopener">Lascia una recensione</a>
+        <a class="text-link" href="{GOOGLE_PLACE}" target="_blank" rel="noopener">Leggi le recensioni</a>
+      </div>
+    </section>'''
+
+
 # ---------------------------------------------------------------- home
 # Detail lines reuse what the levels already include (warm-up, video library, Week 1-6, RPE, conditioning, cardio): to be confirmed by Giorgia.
 PILLARS = [
@@ -145,7 +163,10 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
         <h1 id="hero-title" class="hero-name">Giorgia Piras<span class="hero-role">Personal trainer a Roma</span></h1>
         <span class="hero-rule" aria-hidden="true"></span>
         <p class="hero-line">Non allenarti solo per cambiare il tuo corpo. Allenalo per renderlo forte, performante e capace.</p>
-        <a class="btn btn--primary" href="#metodo">Scopri il metodo</a>
+        <div class="hero-actions">
+          {wa_btn('Ciao Giorgia, vorrei informazioni su GP METHOD.', 'Scrivi a Giorgia')}
+          <a class="text-link" href="#metodo">Scopri il metodo</a>
+        </div>
         <p class="hero-proof">Co-fondatrice di <strong>Weal House</strong> · Via Michele Amari 51, Roma</p>
       </div>
       <figure class="hero-photo">
@@ -175,6 +196,10 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
     <section class="cycle" aria-labelledby="cycle-title">
       <h2 id="cycle-title" class="title">Un ciclo di 6 settimane.</h2>
       {steps()}
+      <div class="ask">
+        <p class="ask-q">Non sai da dove partire?</p>
+        {wa_btn('Ciao Giorgia, non so quale livello di GP METHOD fa per me.', 'Chiedi a Giorgia', 'btn btn--secondary')}
+      </div>
     </section>
 
     <section class="preview light" aria-labelledby="preview-title">
@@ -198,6 +223,8 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
         <a class="text-link" href="chi-sono.html">Chi sono</a>
       </div>
     </section>
+
+{reviews('home')}
 
     <section class="close" aria-labelledby="close-title">
       <h2 id="close-title" class="title">Iniziamo?</h2>
@@ -304,6 +331,8 @@ chi = f"""    <section class="intro" aria-labelledby="about-title">
       <div class="map-frame"><iframe title="Mappa: Weal House, Via Michele Amari 51, Roma" src="https://www.google.com/maps?q=Via+Michele+Amari+51+Roma&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
       <a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=Via+Michele+Amari+51+Roma" target="_blank" rel="noopener">Apri in Maps</a>
     </section>
+
+{reviews('chi')}
 
     <section class="close" aria-labelledby="close-title">
       <h2 id="close-title" class="title">Iniziamo?</h2>
