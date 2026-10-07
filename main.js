@@ -53,6 +53,18 @@ if (neon && !reduceMotion && 'IntersectionObserver' in window) {
   io.observe(neon);
 }
 
+// the red tube glitches when the pointer passes over the sign or a finger taps it (once per second at most)
+const redTube = neon && neon.querySelector('.neon-line--red');
+if (redTube && !reduceMotion) {
+  const glitch = () => {
+    if (redTube.classList.contains('is-glitch')) return;
+    redTube.classList.add('is-glitch');
+    setTimeout(() => redTube.classList.remove('is-glitch'), 1000);
+  };
+  neon.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') glitch(); });
+  neon.addEventListener('pointerdown', glitch, { passive: true });
+}
+
 /* ---------- Gallery: tap = large view; close with X, Esc, tap outside or swipe down ---------- */
 
 const lightbox = document.querySelector('.lightbox');

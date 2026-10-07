@@ -32,7 +32,7 @@ Luce neon (solo nelle scritte LED): rosso #FF3B2F, bianco #F4F7F6, resa con `tex
 
 Tipografia: **Cormorant Garamond** 500 per titoli e numeri (è il carattere di METHOD nel logo), **Jost** 300-600 per testo, interfaccia e neon. Corpo 17px, etichette 13px maiuscole.
 Forma: bottoni a pillola 52px (primario pietra/nero, secondario bordo bronzo/testo pietra); card e foto con raggio 14px; filetti 1px bronzo.
-Motion (solo 3): accensione dei neon USP (~600ms, una volta), "Cosa include" (altezza + opacità, 220ms, `cubic-bezier(0.23,1,0.32,1)`), `scale(0.97)` su :active (160ms). Nessuno scroll-reveal; tutto il testo visibile senza JS.
+Motion: accensione dei neon USP (~600ms, una volta), poi la riga rossa "ronza" (cali ogni 7s, mai spenta) e fa un glitch di 1s al passaggio del mouse o al tocco (max 3 lampi/s, WCAG 2.3.1), "Cosa include" (altezza + opacità, 220ms, `cubic-bezier(0.23,1,0.32,1)`), `scale(0.97)` su :active (160ms). Nessuno scroll-reveal; tutto il testo visibile senza JS.
 
 ## 2a. Hero (ottobre 2026)
 Foto di Giorgia a Weal House (`assets/hero/`): 5:4 sotto 768px, 4:3 da 768px; WebP q82 con versioni leggere (900w / 1280w), JPG di riserva, `fetchpriority="high"` (è l'LCP).
