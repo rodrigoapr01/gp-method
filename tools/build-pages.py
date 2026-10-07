@@ -34,10 +34,6 @@ def wa_btn(msg, label, cls="btn btn--primary"):
     return f'<a class="{cls}" data-wa="{msg}" href="#contatti">{WA_ICON}<span>{label}</span></a>'
 
 
-HERO_3D = """  <script src="assets/hero-3d.js" defer></script>
-"""
-
-
 def page(file, title, desc, body, wa_msg, extra_head="", home=False):
     nav = [("index.html#metodo", "Metodo"), ("livelli.html", "Livelli"), ("chi-sono.html", "Chi sono")]
     current = {"livelli.html": "Livelli", "chi-sono.html": "Chi sono"}.get(file)
@@ -73,7 +69,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js')</script>
   <script src="main.js" defer></script>
-{HERO_3D if home else ''}{extra_head}</head>
+{extra_head}</head>
 <body class="{'is-home' if home else 'is-inner'}">
   <a class="skip" href="#main">Vai al contenuto</a>
   <header class="top">
@@ -117,15 +113,17 @@ def steps(cls=""):
 
 # ---------------------------------------------------------------- home
 home = f"""    <section class="hero" aria-labelledby="hero-title">
-      {pic('neon-stronger-manubri', "Insegna al neon Be stronger than your excuses sopra la rastrelliera dei manubri della palestra Weal House", cls='hero-photo', eager=True)}
-      <canvas class="hero-scene" aria-hidden="true"></canvas>
       <div class="hero-copy">
-        {logo_full('hero-logo', 340, eager=True)}
-        <p class="kicker" lang="en">Online coaching by Giorgia Piras</p>
-        <h1 id="hero-title">Non allenarti solo per cambiare il tuo corpo.</h1>
-        <p class="hero-sub">Allenalo per renderlo forte, performante e capace.</p>
+        <p class="kicker" lang="en">Online coaching</p>
+        <h1 id="hero-title" class="hero-name">Giorgia Piras<span class="hero-role">Personal trainer a Roma</span></h1>
+        <span class="hero-rule" aria-hidden="true"></span>
+        <p class="hero-line">Non allenarti solo per cambiare il tuo corpo. Allenalo per renderlo forte, performante e capace.</p>
         <a class="btn btn--primary" href="#metodo">Scopri il metodo</a>
+        <p class="hero-proof">Co-fondatrice di <strong>Weal House</strong> · Via Michele Amari 51, Roma</p>
       </div>
+      <figure class="hero-photo">
+        {pic('sala-pista-sled', "La sala di Weal House, con la pista per lo sled e l'insegna al neon", eager=True, sizes="(min-width: 900px) 50vw, 100vw")}
+      </figure>
     </section>
 
     <section class="usp" aria-labelledby="usp-title">

@@ -28,7 +28,6 @@
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js')</script>
   <script src="main.js" defer></script>
-  <script src="assets/hero-3d.js" defer></script>
 </head>
 <body class="is-home">
   <a class="skip" href="#main">Vai al contenuto</a>
@@ -47,15 +46,17 @@
 
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
-      <picture><source type="image/webp" srcset="assets/palestra/neon-stronger-manubri.webp" sizes="100vw"><img class="hero-photo" src="assets/palestra/neon-stronger-manubri.jpg" width="1086" height="1448" alt="Insegna al neon Be stronger than your excuses sopra la rastrelliera dei manubri della palestra Weal House" fetchpriority="high" decoding="async"></picture>
-      <canvas class="hero-scene" aria-hidden="true"></canvas>
       <div class="hero-copy">
-        <img class="hero-logo" src="assets/brand/lineare/svg/GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg" width="340" height="340" alt="GP METHOD" decoding="async">
-        <p class="kicker" lang="en">Online coaching by Giorgia Piras</p>
-        <h1 id="hero-title">Non allenarti solo per cambiare il tuo corpo.</h1>
-        <p class="hero-sub">Allenalo per renderlo forte, performante e capace.</p>
+        <p class="kicker" lang="en">Online coaching</p>
+        <h1 id="hero-title" class="hero-name">Giorgia Piras<span class="hero-role">Personal trainer a Roma</span></h1>
+        <span class="hero-rule" aria-hidden="true"></span>
+        <p class="hero-line">Non allenarti solo per cambiare il tuo corpo. Allenalo per renderlo forte, performante e capace.</p>
         <a class="btn btn--primary" href="#metodo">Scopri il metodo</a>
+        <p class="hero-proof">Co-fondatrice di <strong>Weal House</strong> · Via Michele Amari 51, Roma</p>
       </div>
+      <figure class="hero-photo">
+        <picture><source type="image/webp" srcset="assets/palestra/sala-pista-sled.webp" sizes="(min-width: 900px) 50vw, 100vw"><img src="assets/palestra/sala-pista-sled.jpg" width="1086" height="1448" alt="La sala di Weal House, con la pista per lo sled e l'insegna al neon" fetchpriority="high" decoding="async"></picture>
+      </figure>
     </section>
 
     <section class="usp" aria-labelledby="usp-title">

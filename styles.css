@@ -141,37 +141,28 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .menu-close svg { width: 20px; height: 20px; }
 .menu .btn { justify-self: start; }
 
-/* ---------- Home: hero ---------- */
+/* ---------- Home: hero (photo of the gym for now; Giorgia's portrait goes in the same frame) ---------- */
 
 .hero {
-  position: relative;
+  display: grid;
   min-height: 100vh;
   min-height: 100svh;
-  display: grid;
-  align-content: end;
-  padding: 120px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 48px);
-  isolation: isolate;
+  padding: 0 var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 32px);
 }
-.hero picture { position: absolute; inset: 0; z-index: -2; }
-.hero-photo { width: 100%; height: 100%; object-fit: cover; object-position: 50% 16%; }
-.hero::before {
-  content: ''; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0.12) 30%, rgba(25, 23, 22, 0.78) 62%, var(--nero) 100%);
-}
-.hero-copy { position: relative; z-index: 1; display: grid; gap: 16px; justify-items: start; max-width: 680px; }
-/* floating equipment (assets/hero-3d.js): over the photo, under the copy; vertical swipes still scroll the page */
-.hero-scene { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; touch-action: pan-y; pointer-events: none; }
-.hero h1 { max-width: 13ch; }
-.hero-sub { font-size: 18px; color: var(--pietra-2); max-width: 30ch; }
-.hero .btn { margin-top: 8px; }
-/* official logo with circle: its file has 10% empty margin around the circle, pulled back so the circle lines up with the text */
-.hero-logo { width: 240px; height: auto; margin: -24px 0 -16px -24px; }
-/* phones: the logo + copy start under the neon sign; the photo and its veil keep one screen's height, the rest is nero */
-@media (max-width: 899px) {
-  .hero { padding-top: 34vh; padding-top: 34svh; }
-  .hero picture, .hero::before { bottom: auto; height: 100vh; height: 100svh; }
-  /* darker under the sign, so the logo's small lettering reads over the dumbbell rack */
-  .hero::before { background: linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0.12) 26%, rgba(25, 23, 22, 0.72) 38%, rgba(25, 23, 22, 0.86) 62%, var(--nero) 100%); }
+.hero-photo { position: relative; order: -1; margin: 0 calc(var(--gutter) * -1) 32px; height: 46vh; height: 46svh; }
+.hero-photo picture { display: block; height: 100%; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+/* dark at the top for the header, into nero at the bottom where the copy starts */
+.hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0) 30%, rgba(25, 23, 22, 0) 70%, var(--nero) 100%); }
+.hero-copy { display: grid; gap: 18px; justify-items: start; }
+.hero .kicker { margin: 0; }
+.hero-name { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(52px, 19vw, 120px); line-height: 0.92; letter-spacing: -0.01em; }
+.hero-role { display: block; margin-top: clamp(22px, 0.22em, 44px); font-family: var(--sans); font-size: 15px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; line-height: 1.4; }
+.hero-rule { display: block; width: 56px; height: 1px; background: var(--bronzo); }
+.hero-line { margin: 0; max-width: 34ch; font-size: 18px; line-height: 1.55; color: var(--pietra-2); }
+.hero .btn { margin-top: 6px; }
+.hero-proof { margin: 14px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; letter-spacing: 0.02em; color: var(--pietra-2); }
+.hero-proof strong { font-weight: 500; color: var(--pietra); }
 }
 
 /* ---------- Home: USP with the neon (the one signature moment) ---------- */
@@ -416,14 +407,13 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .top-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; text-decoration: none; font-size: 15px; letter-spacing: 0.04em; }
   .top-nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--bronzo); }
 
-  .hero { padding: 104px max(var(--gutter), calc((100% - var(--max)) / 2)) 56px; align-content: center; }
-  .hero picture { left: auto; width: 60%; }
-  .hero-photo { object-position: 50% 10%; }
-  .hero-logo { width: 340px; margin: -34px 0 -24px -34px; }
-  .hero::before { background: linear-gradient(90deg, var(--nero) 40%, rgba(25, 23, 22, 0.55) 52%, rgba(25, 23, 22, 0) 72%), linear-gradient(0deg, var(--nero) 0%, rgba(25, 23, 22, 0) 22%); }
-  .hero h1 { font-size: clamp(48px, 4.6vw, 72px); max-width: 14ch; }
-  .hero-copy { max-width: 36%; }
-  .hero-sub { font-size: 20px; }
+  .hero { grid-template-columns: 1fr 1fr; padding: 0 0 0 max(var(--gutter), calc((100% - var(--max)) / 2)); }
+  .hero-copy { align-self: center; padding: 140px 56px 64px 0; }
+  .hero-photo { order: 0; margin: 0; height: auto; min-height: 100vh; min-height: 100svh; }
+  .hero-photo::after { background: linear-gradient(90deg, var(--nero) 0%, rgba(25, 23, 22, 0) 22%), linear-gradient(180deg, rgba(25, 23, 22, 0.5) 0%, rgba(25, 23, 22, 0) 25%); }
+  .hero-name { font-size: clamp(96px, 10.4vw, 150px); }
+  .hero-line { font-size: 20px; }
+  .hero-role { font-size: 16px; }
 
   .usp { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; column-gap: 64px; }
   .neon { font-size: clamp(26px, 3.2vw, 46px); }
