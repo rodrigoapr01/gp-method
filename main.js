@@ -125,16 +125,35 @@ if (lightbox) {
   img.addEventListener('pointercancel', end);
 }
 
-/* ---------- WhatsApp fixed button (phones): after the hero, never next to another WhatsApp button ---------- */
+/* ---------- WhatsApp fixed button (phones; hidden by CSS from 768px): after the hero, never next to
+   another WhatsApp button, and out of the way when any button or link reaches the bottom strip it sits in ---------- */
 
 const fab = document.querySelector('.fab');
 if (fab && 'IntersectionObserver' in window) {
   const first = document.querySelector('.hero, .intro');
   const others = [...document.querySelectorAll('main [data-wa], .foot')];
   const state = new Map([[first, true], ...others.map((el) => [el, false])]);
+  const covered = new Set();  // controls currently inside the bottom strip
+  const update = () => fab.classList.toggle('is-visible', covered.size === 0 && [...state.values()].every((v) => !v));
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => state.set(e.target, e.isIntersecting));
-    fab.classList.toggle('is-visible', [...state.values()].every((v) => !v));
+    update();
   });
   [first, ...others].forEach((el) => el && io.observe(el));
+
+  const controls = [...document.querySelectorAll('main .btn, main .text-link, main .row, main .faq-btn, main .include-btn')];
+  let strip = null;
+  const watchStrip = () => {
+    if (strip) strip.disconnect();
+    covered.clear();
+    // only the bottom 84px of the screen count: that is where the button lives
+    strip = new IntersectionObserver((entries) => {
+      entries.forEach((e) => (e.isIntersecting ? covered.add(e.target) : covered.delete(e.target)));
+      update();
+    }, { rootMargin: `-${Math.max(0, window.innerHeight - 84)}px 0px 0px 0px` });
+    controls.forEach((el) => strip.observe(el));
+  };
+  watchStrip();
+  let t = 0;
+  window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(watchStrip, 200); });
 }

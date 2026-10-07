@@ -42,8 +42,8 @@ Testo: "Giorgia Piras", "Personal trainer a Roma", filetto bronzo, una frase, un
 
 ## 2b. Logo ufficiale (assets/brand/lineare, approvato dalla cliente)
 File usati così come sono, mai ridisegnati né ricolorati.
-- Header (tutte le pagine): logo con cerchio `svg/GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg` a 160px (il minimo in cui le scritte si leggono); sotto 380px l'header mostra solo logo e menu (WhatsApp è dentro il menu).
-- Footer: stesso logo con cerchio, 180px.
+- Header (tutte le pagine): monogramma `svg/GP-monogramma-lineare_pietra.svg` 34px (40px desktop) + "GP METHOD"; header sottile su mobile; sotto 360px solo il monogramma.
+- Footer: logo con cerchio, 180px (mai sotto 160px).
 - Regola: il logo con cerchio mai sotto i 160px; sotto si usa il monogramma.
 - Favicon: `svg/favicon.svg`, `png/favicon-32.png`, `png/favicon-180.png`. OG: `png/GP-METHOD-lineare_con-cerchio_scuro.png` centrato su #191716 (`tools/build-assets.py`).
 
@@ -53,16 +53,16 @@ File usati così come sono, mai ridisegnati né ricolorati.
 - I testi riusano solo fatti già sul sito (nota sul percorso e liste "Cosa include"): da far confermare a Giorgia.
 
 ## 2d. WhatsApp e recensioni (ottobre 2026)
-- WhatsApp è l'azione principale: "Scrivi a Giorgia" nell'hero (con "Scopri il metodo" come link), "Chiedi a Giorgia" sotto il ciclo, bottone fisso dopo l'hero anche su desktop (pillola in basso a destra), più header, card livelli, chiusura e footer.
+- WhatsApp (5 punti): "Scrivimi" nell'header, voce nel menu mobile, bottone nell'hero, "Iniziamo?" in chiusura, bottone fisso compatto solo su mobile (sotto 768px, in basso a destra, 48px, dopo l'hero, si nasconde quando un bottone o un link passa sotto di lui). In Livelli restano anche i bottoni delle tre card. Niente WhatsApp nel footer né sotto il ciclo.
 - Recensioni: blocco chiaro in home (dopo "Dove nasce il metodo") e in Chi sono (dopo la mappa): 5 stelle, "5 su 5 su Google", invito "Ti alleni con Giorgia? Lascia la tua recensione." e link alla scheda Google di Weal House (cid 5456743492543164649). Il voto (5,0, 22 recensioni al 7/10/2026) è scritto a mano: aggiornarlo se cambia.
 
 ## 2e. Voce e domande frequenti (ottobre 2026)
-- I bottoni WhatsApp parlano in prima persona (Giorgia): "Scrivimi su WhatsApp", "Chiedimelo su WhatsApp", "Scrivimi ora".
-- Livelli: sezione "Domande frequenti" (#faq) dopo Il percorso, 8 domande in prima persona con prezzi, differenze tra livelli, durata, principianti, online/palestra, alimentazione, come iniziare (link WhatsApp). Stessa apertura di "Cosa include". JSON-LD FAQPage. In home, link "Domande frequenti" accanto a "Scegli il tuo livello".
+- I bottoni WhatsApp parlano in prima persona (Giorgia): "Scrivimi", "Scrivimi su WhatsApp".
+- Livelli: sezione "Domande frequenti" (#faq) dopo Il percorso, 8 domande in prima persona con prezzi, differenze tra livelli, durata, principianti, online/palestra, alimentazione, come iniziare. Stessa apertura di "Cosa include". JSON-LD FAQPage. In home, link "Domande frequenti" accanto a "Scegli il tuo livello".
 - Le risposte usano solo fatti già sul sito: da far confermare a Giorgia.
 
 ## 3. Elemento firma: il neon
-Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, riempite, bagliore freddo) alternate a parole rosse spesse e contornate (Jost 600 maiuscolo, `-webkit-text-stroke`, riempimento trasparente, bagliore rosso). Un solo punto: la USP della home, che dall'ottobre 2026 è solo la frase "Non devi scegliere / tra estetica / e performance." resa come l'insegna "Be stronger than your excuses" (bianco, rosso a tubo, bianco), centrata; le tre righe inglesi BUILD/DEVELOP/ELEVATE sono state tolte. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).
+Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, bagliore freddo) alternate a parole rosse piene (Jost 500 maiuscolo, #FF3B2F, bagliore rosso con text-shadow a più livelli; niente text-stroke, che disegnava linee dove i tratti delle lettere si sovrappongono). Un solo punto: la USP della home, che dall'ottobre 2026 è solo la frase "Non devi scegliere / tra estetica / e performance." resa come l'insegna "Be stronger than your excuses" (bianco, rosso a tubo, bianco), centrata; le tre righe inglesi BUILD/DEVELOP/ELEVATE sono state tolte. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).
 
 ## 4. Wireframe
 

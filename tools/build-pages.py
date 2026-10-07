@@ -16,6 +16,7 @@ WA_ICON = ('<svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="
 # The full logo with the circle is only used at 160px or wider: below that its small lettering is unreadable.
 BRAND = "assets/brand/lineare"
 LOGO_FULL = f"{BRAND}/svg/GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg"
+MONOGRAM = f"{BRAND}/svg/GP-monogramma-lineare_pietra.svg"  # header: the circle logo would be under 160px there
 
 
 def logo_full(cls, size, eager=False):
@@ -73,7 +74,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
 <body class="{'is-home' if home else 'is-inner'}">
   <a class="skip" href="#main">Vai al contenuto</a>
   <header class="top">
-    <a class="brand" href="index.html" aria-label="GP METHOD">{logo_full('brand-logo', 160, eager=True)}</a>
+    <a class="brand" href="index.html" aria-label="GP METHOD"><img class="brand-mono" src="{MONOGRAM}" width="49" height="40" alt="GP METHOD"><span class="brand-name" aria-hidden="true">GP METHOD</span></a>
     <nav class="top-nav" aria-label="Principale">{links}</nav>
     {wa_btn(wa_msg, 'Scrivimi', 'btn btn--secondary btn--sm top-wa')}
     <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu" aria-label="Apri il menu"><span></span><span></span></button>
@@ -93,11 +94,10 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
     <a class="foot-brand" href="index.html" aria-label="GP METHOD">{logo_full('foot-logo', 180)}</a>
     <nav class="foot-nav" aria-label="Pagine">{links}<a href="https://www.instagram.com/lapiras93/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/giorgia.piras.3" target="_blank" rel="noopener">Facebook</a></nav>
     <p class="foot-address">Weal House, Via Michele Amari 51, Roma</p>
-    {wa_btn(wa_msg, 'Scrivimi su WhatsApp', 'btn btn--secondary')}
     <p class="foot-credit">Sito realizzato da <a href="https://transiva.it" target="_blank" rel="noopener">Transiva</a></p>
   </footer>
 
-  {wa_btn(wa_msg, 'Scrivimi su WhatsApp', 'fab')}
+  {wa_btn(wa_msg, 'Scrivimi', 'fab')}
 </body>
 </html>
 """
@@ -168,7 +168,7 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
           {wa_btn('Ciao Giorgia, vorrei informazioni su GP METHOD.', 'Scrivimi su WhatsApp')}
           <a class="text-link" href="#metodo">Scopri il metodo</a>
         </div>
-        <p class="hero-proof">Co-fondatrice di <strong>Weal House</strong> · Via Michele Amari 51, Roma</p>
+        <p class="hero-proof"><span class="nowrap">Co-fondatrice</span> di <strong>Weal House</strong> · Via Michele Amari 51, Roma</p>
       </div>
       <figure class="hero-photo">
         <picture>
@@ -197,10 +197,6 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
     <section class="cycle" aria-labelledby="cycle-title">
       <h2 id="cycle-title" class="title">Un ciclo di 6 settimane.</h2>
       {steps()}
-      <div class="ask">
-        <p class="ask-q">Non sai da dove partire?</p>
-        {wa_btn('Ciao Giorgia, non so quale livello di GP METHOD fa per me.', 'Chiedimelo su WhatsApp', 'btn btn--secondary')}
-      </div>
     </section>
 
     <section class="preview light" aria-labelledby="preview-title">
@@ -304,8 +300,7 @@ def faq_item(i, q, a_html):
 
 faq_items = "".join(faq_item(i, q, a) for i, (q, a) in enumerate(FAQ, 1))
 faq_items += faq_item(len(FAQ) + 1, FAQ_START[0],
-                      'Scrivimi su WhatsApp dicendomi il livello che ti interessa: partiamo dall\'assessment. '
-                      '<a class="text-link" data-wa="Ciao Giorgia, vorrei iniziare GP METHOD. Il livello che mi interessa è: " href="#contatti">Scrivimi ora</a>')
+                      FAQ_START[1])
 faq_ld = json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
     {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ + [FAQ_START]]},
     ensure_ascii=False)
@@ -363,7 +358,7 @@ chi = f"""    <section class="intro" aria-labelledby="about-title">
     </section>
 
     <section class="who light" aria-labelledby="who-title">
-      <h2 id="who-title" class="title">Giorgia Piras, personal trainer a Roma e co-fondatrice di Weal House.</h2>
+      <h2 id="who-title" class="title">Giorgia Piras, personal trainer a Roma. <span class="nowrap">Co-fondatrice</span> di Weal House.</h2>
       <p class="who-social">
         <a class="text-link text-link--dark" href="https://www.instagram.com/lapiras93/" target="_blank" rel="noopener">Instagram @lapiras93</a>
         <a class="text-link text-link--dark" href="https://www.facebook.com/giorgia.piras.3" target="_blank" rel="noopener">Facebook</a>
@@ -394,6 +389,6 @@ chi = f"""    <section class="intro" aria-labelledby="about-title">
       <img class="lightbox-img" src="" alt="">
     </dialog>"""
 page("chi-sono.html", "Chi sono | Giorgia Piras, GP METHOD",
-     "Giorgia Piras, personal trainer a Roma e co-fondatrice di Weal House. La palestra di Via Michele Amari 51 dove nasce GP METHOD.",
+     "Giorgia Piras, personal trainer a Roma. Co-fondatrice di Weal House. La palestra di Via Michele Amari 51 dove nasce GP METHOD.",
      chi, "Ciao Giorgia, ti scrivo dalla pagina Chi sono di GP METHOD.", extra_head=jsonld)
 print("pages written")

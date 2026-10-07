@@ -105,12 +105,13 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   display: flex; align-items: center; gap: 12px;
   padding: calc(env(safe-area-inset-top, 0px) + 12px) max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
 }
-.brand { display: block; flex-shrink: 0; margin-right: auto; color: var(--pietra); }
-/* the official logo with circle, at the 160px minimum where its lettering still reads; the file has 10% empty margin, trimmed here */
-.brand-logo { display: block; width: 160px; max-width: none; height: auto; margin: -16px 0 -16px -16px; }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 44px; min-height: 44px; margin-right: auto; color: var(--pietra); text-decoration: none; }
+/* header: the monogram (the circle logo would be under 160px here) + the name */
+.brand-mono { display: block; width: auto; height: 34px; }
+.brand-name { font-size: 13px; font-weight: 500; letter-spacing: 0.22em; white-space: nowrap; }
 .top-wa, .menu-btn { flex-shrink: 0; }
-/* the smallest phones: logo + menu only (WhatsApp is inside the menu) */
-@media (max-width: 379px) { .top .top-wa { display: none; } }
+/* the smallest phones: no room for the name next to "Scrivimi" and the menu */
+@media (max-width: 359px) { .brand-name { display: none; } }
 .top-nav { display: none; }
 .top-wa { display: inline-flex; }
 .menu-btn {
@@ -161,6 +162,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 6px; }
 .hero-proof { margin: 14px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; letter-spacing: 0.02em; color: var(--pietra-2); }
 .hero-proof strong { font-weight: 500; color: var(--pietra); }
+.nowrap { white-space: nowrap; }
 
 /* ---------- Home: USP as a neon sign (the one signature moment, like "Be stronger than your excuses" at Weal House) ---------- */
 
@@ -186,15 +188,11 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   color: var(--neon-white);
   text-shadow: 0 0 2px #fff, 0 0 8px rgba(244, 247, 246, 0.85), 0 0 20px rgba(205, 228, 255, 0.45), 0 0 42px rgba(205, 228, 255, 0.22);
 }
-/* thick red tubes: outlined letters, transparent inside, the glow follows the tube (drop-shadow) */
-.neon-line--red { font-weight: 600; color: var(--neon-red); }
-@supports (-webkit-text-stroke: 1px red) {
-  .neon-line--red { color: transparent; -webkit-text-stroke: 0.05em var(--neon-red); }
-}
+/* red: filled letters, glow in layers like the white (a text-stroke drew lines where the letter strokes overlap) */
+.neon-line--red { font-weight: 500; color: var(--neon-red); }
 .neon-line--red::after {
-  color: transparent;
-  -webkit-text-stroke: 0.05em var(--neon-red);
-  filter: drop-shadow(0 0 1px #ff8a80) drop-shadow(0 0 5px rgba(255, 59, 47, 0.7)) drop-shadow(0 0 16px rgba(255, 59, 47, 0.35));
+  color: var(--neon-red);
+  text-shadow: 0 0 2px #ffb3ab, 0 0 8px rgba(255, 59, 47, 0.9), 0 0 20px rgba(255, 59, 47, 0.55), 0 0 42px rgba(255, 59, 47, 0.3);
 }
 /* switch-on, once: the glow starts dim (text fully readable) and catches with two flickers */
 .neon-wait .neon-line::after { opacity: 0.1; }
@@ -312,10 +310,6 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 
 /* ---------- Closing CTA ---------- */
 
-/* ---------- WhatsApp nudge under the cycle ---------- */
-
-.ask { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; padding-top: 28px; border-top: 1px solid var(--line); }
-.ask-q { font-family: var(--serif); font-size: clamp(24px, 6vw, 32px); line-height: 1.15; }
 
 /* ---------- Levels page: questions and answers (same open/close as "Cosa include") ---------- */
 
@@ -338,7 +332,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .stars { display: flex; gap: 6px; }
 .stars svg { width: 26px; height: 26px; fill: var(--bronzo); }
 .reviews .title { margin-top: 6px; }
-.reviews-sub { max-width: 40ch; font-size: 17px; color: var(--nero-2); }
+.reviews-sub { max-width: 46ch; font-size: 17px; color: var(--nero-2); }
 .reviews-ask { margin-top: 18px; font-size: 18px; font-weight: 500; }
 .reviews-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; margin-top: 6px; }
 
@@ -346,7 +340,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 
 /* ---------- Inner pages: intro ---------- */
 
-.intro { display: grid; gap: 18px; padding: calc(env(safe-area-inset-top, 0px) + 172px) var(--gutter) 56px; }
+.intro { display: grid; gap: 18px; padding: calc(env(safe-area-inset-top, 0px) + 120px) var(--gutter) 56px; }
 .is-inner .intro h1 { font-size: clamp(36px, 9.4vw, 72px); max-width: 20ch; }
 
 /* ---------- Livelli: cards ---------- */
@@ -434,24 +428,26 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   border-top: 1px solid var(--bronzo);
 }
 .foot-brand { color: var(--pietra); }
-.foot-logo { width: 180px; height: auto; margin: -18px 0 -18px -18px; } /* 10% empty margin in the file */
+.foot-logo { width: 180px; max-width: none; height: auto; margin: -18px 0 -18px -18px; } /* 10% empty margin in the file */
 .foot-nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .foot-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; text-decoration: none; }
 .foot-address { color: var(--pietra-2); }
 .foot-credit { font-size: 14px; color: var(--pietra-2); }
 .foot-credit a { display: inline-flex; align-items: center; min-height: 44px; }
 
-/* ---------- WhatsApp fixed button (after the hero; full width on phones, a pill bottom-right on desktop) ---------- */
+/* ---------- WhatsApp fixed button: phones only, a compact pill bottom-right after the hero ---------- */
 
 .fab {
   position: fixed; z-index: 30;
-  left: max(16px, env(safe-area-inset-left, 0px)); right: max(16px, env(safe-area-inset-right, 0px));
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
-  display: none; align-items: center; justify-content: center; gap: 10px;
-  min-height: 52px; border: 1.5px solid var(--bronzo); border-radius: 999px;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  display: none; align-items: center; justify-content: center; gap: 8px;
+  height: 48px; padding: 0 18px; border: 1.5px solid var(--bronzo); border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(25, 23, 22, 0.35);
   background: var(--nero); color: var(--pietra); font-weight: 500; text-decoration: none;  /* readable on nero and on pietra */
 }
 .fab.is-visible { display: flex; }
+@media (min-width: 768px) { .fab, .fab.is-visible { display: none; } }  /* the header button is there */
 .fab:active { transform: scale(0.97); transition: transform 160ms var(--ease-out); }
 
 /* ---------- Hover: real pointers only ---------- */
@@ -488,24 +484,28 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   /* desktop: the 4:3 photo fills the hero, Giorgia on the right, the copy on the left over a dark gradient */
   .is-home .top { position: absolute; background: none; padding-bottom: 0; }
   .hero { position: relative; min-height: 100vh; min-height: 100svh; padding: 0 max(var(--gutter), calc((100% - var(--max)) / 2)); isolation: isolate; }
-  .hero-copy { align-self: center; max-width: min(40vw, 600px); padding: 176px 0 56px; }
+  .hero-copy { align-self: center; max-width: min(40vw, 600px); padding: 140px 0 56px; }
   .hero-photo { position: absolute; inset: 0; z-index: -1; margin: 0; aspect-ratio: auto; }
   .hero-photo img { object-position: 70% 20%; }
   .hero-photo::after { background:
-    linear-gradient(90deg, var(--nero) 0%, rgba(25, 23, 22, 0.92) 28%, rgba(25, 23, 22, 0.55) 46%, rgba(25, 23, 22, 0) 62%),
+    linear-gradient(90deg, rgba(25, 23, 22, 0.85) 0%, rgba(25, 23, 22, 0.85) 36%, rgba(25, 23, 22, 0) 55%),
     linear-gradient(180deg, rgba(25, 23, 22, 0.6) 0%, rgba(25, 23, 22, 0) 18%, rgba(25, 23, 22, 0) 80%, var(--nero) 100%); }
   .hero-name { font-size: clamp(96px, 10.4vw, 150px); }
+  .reviews { justify-items: center; text-align: center; }
+  .reviews-actions { justify-content: center; }
   .hero-line { font-size: 20px; }
   .hero-role { font-size: 16px; }
 
   .neon { font-size: clamp(56px, 5.6vw, 84px); }
   .neon-line { white-space: nowrap; }
 
-  .pillars li { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 48px; }
-  .pillar-btn { grid-column: 1 / -1; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 48px; align-items: baseline; padding: 28px 0; }
+  /* the word column is never narrower than PERFORMANCE (7.34em in Cormorant caps), then 48px before the line */
+  .pillars { --pw: clamp(56px, 6.4vw, 96px); --pcols: minmax(calc(var(--pw) * 7.4), 7fr) minmax(0, 5fr); }
+  .pillars li { display: grid; grid-template-columns: var(--pcols); column-gap: 48px; }
+  .pillar-btn { grid-column: 1 / -1; grid-template-columns: var(--pcols); column-gap: 48px; align-items: baseline; padding: 28px 0; }
   .pillars li:first-child .pillar-btn { padding-top: 0; }
   .more-panel { grid-column: 2; }
-  .pillar-word { font-size: clamp(56px, 6.4vw, 96px); }
+  .pillar-word { font-size: var(--pw); }
   .pillar-line { font-size: 18px; }
   /* one content width for every section: equal side margins, everything left-aligned */
   .usp, .method, .preview, .cycle, .path, .faq, .who, .gallery-sec, .map, .reviews, .close, .intro, .cards, .place-copy, .foot {
@@ -528,7 +528,8 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 
   .close { grid-template-columns: auto auto; justify-content: start; align-items: center; column-gap: 48px; }
 
-  .intro { padding-top: 196px; }
+  .intro { padding-top: 168px; }
+  .brand-mono { height: 40px; }
 
   .cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -546,13 +547,11 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .gallery li:first-child .tile, .gallery li:first-child picture, .gallery li:first-child img { height: 100%; }
   .map-frame { aspect-ratio: 16 / 7; }
 
-  .foot { grid-template-columns: auto 1fr auto; align-items: center; column-gap: 48px; }
+  .foot { grid-template-columns: auto 1fr; align-items: center; column-gap: 48px; }
   .foot-brand { grid-row: span 2; }
   .foot-nav { grid-column: 2; }
   .foot-address { grid-column: 2; }
-  .foot .btn { grid-column: 3; grid-row: 1 / span 2; }
   .foot-credit { grid-column: 1 / -1; }
-  .fab { left: auto; right: 32px; bottom: 32px; padding: 0 24px; box-shadow: 0 8px 24px rgba(25, 23, 22, 0.35); }
 }
 
 /* ---------- Reduced motion: nothing moves, the neon is simply on ---------- */
