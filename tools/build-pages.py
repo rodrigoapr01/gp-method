@@ -358,11 +358,19 @@ chi = f"""    <section class="intro" aria-labelledby="about-title">
     </section>
 
     <section class="who light" aria-labelledby="who-title">
+      <figure class="who-photo">
+        <picture>
+          <source type="image/webp" srcset="assets/chi-sono/GP_chi_sono_giorgia_4x5-900.webp 900w, assets/chi-sono/GP_chi_sono_giorgia_4x5.webp 1920w" sizes="(min-width: 900px) 45vw, 100vw">
+          <img src="assets/chi-sono/GP_chi_sono_giorgia_4x5.jpg" width="1920" height="2400" alt="Giorgia Piras, personal trainer, seduta nella palestra Weal House a Roma" decoding="async">
+        </picture>
+      </figure>
+      <div class="who-copy">
       <h2 id="who-title" class="title">Giorgia Piras, personal trainer a Roma. <span class="nowrap">Co-fondatrice</span> di Weal House.</h2>
       <p class="who-social">
         <a class="text-link text-link--dark" href="https://www.instagram.com/lapiras93/" target="_blank" rel="noopener">Instagram @lapiras93</a>
         <a class="text-link text-link--dark" href="https://www.facebook.com/giorgia.piras.3" target="_blank" rel="noopener">Facebook</a>
       </p>
+      </div>
     </section>
 
     <section class="gallery-sec" aria-labelledby="gallery-title">

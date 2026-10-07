@@ -61,6 +61,9 @@ File usati così come sono, mai ridisegnati né ricolorati.
 - Livelli: sezione "Domande frequenti" (#faq) dopo Il percorso, 8 domande in prima persona con prezzi, differenze tra livelli, durata, principianti, online/palestra, alimentazione, come iniziare. Stessa apertura di "Cosa include". JSON-LD FAQPage. In home, link "Domande frequenti" accanto a "Scegli il tuo livello".
 - Le risposte usano solo fatti già sul sito: da far confermare a Giorgia.
 
+## 2f. Chi sono: foto di Giorgia (ottobre 2026)
+Nella sezione di presentazione (`.who`): foto 4:5 seduta davanti all'insegna "Be stronger than your excuses" (`assets/chi-sono/`, WebP q82 900w/1920w + JPG), angoli 14px, `object-position: 50% 20%`. Mobile: a tutta larghezza sopra il testo, caricata subito (è nella prima schermata). Desktop: colonne 45/55, testo centrato in verticale.
+
 ## 3. Elemento firma: il neon
 Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, bagliore freddo) alternate a parole rosse piene (Jost 500 maiuscolo, #FF3B2F, bagliore rosso con text-shadow a più livelli; niente text-stroke, che disegnava linee dove i tratti delle lettere si sovrappongono). Un solo punto: la USP della home, che dall'ottobre 2026 è solo la frase "Non devi scegliere / tra estetica / e performance." resa come l'insegna "Be stronger than your excuses" (bianco, rosso a tubo, bianco), centrata; le tre righe inglesi BUILD/DEVELOP/ELEVATE sono state tolte. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).
 
