@@ -122,7 +122,12 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
         <p class="hero-proof">Co-fondatrice di <strong>Weal House</strong> · Via Michele Amari 51, Roma</p>
       </div>
       <figure class="hero-photo">
-        {pic('sala-pista-sled', "La sala di Weal House, con la pista per lo sled e l'insegna al neon", eager=True, sizes="(min-width: 900px) 50vw, 100vw")}
+        <picture>
+          <source media="(max-width: 767px)" type="image/webp" srcset="assets/hero/GP_hero_giorgia_mobile_5x4-900.webp 900w, assets/hero/GP_hero_giorgia_mobile_5x4.webp 1791w" sizes="100vw" width="1791" height="1433">
+          <source media="(max-width: 767px)" srcset="assets/hero/GP_hero_giorgia_mobile_5x4.jpg" width="1791" height="1433">
+          <source type="image/webp" srcset="assets/hero/GP_hero_giorgia_4x3-1280.webp 1280w, assets/hero/GP_hero_giorgia_4x3.webp 1920w" sizes="100vw" width="1920" height="1433">
+          <img src="assets/hero/GP_hero_giorgia_4x3.jpg" width="1920" height="1433" alt="Giorgia Piras, personal trainer, nella palestra Weal House a Roma" fetchpriority="high" decoding="async">
+        </picture>
       </figure>
     </section>
 

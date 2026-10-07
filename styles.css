@@ -141,23 +141,22 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .menu-close svg { width: 20px; height: 20px; }
 .menu .btn { justify-self: start; }
 
-/* ---------- Home: hero (photo of the gym for now; Giorgia's portrait goes in the same frame) ---------- */
+/* ---------- Home: hero (Giorgia at Weal House) ---------- */
 
-.hero {
-  display: grid;
-  min-height: 100vh;
-  min-height: 100svh;
-  padding: 0 var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 32px);
-}
-.hero-photo { position: relative; order: -1; margin: 0 calc(var(--gutter) * -1) 32px; height: 46vh; height: 46svh; }
+/* phones and tablets: solid header, the photo right under it, then the copy */
+.is-home .top { position: relative; background: var(--nero); padding-bottom: 12px; }
+.hero { display: grid; padding: 0 var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 32px); }
+.hero-photo { position: relative; order: -1; margin: 0 calc(var(--gutter) * -1) 28px; aspect-ratio: 5 / 4; }
 .hero-photo picture { display: block; height: 100%; }
-.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
-/* dark at the top for the header, into nero at the bottom where the copy starts */
-.hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0) 30%, rgba(25, 23, 22, 0) 70%, var(--nero) 100%); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+/* fades into nero: ~12% at the top, ~20% at the bottom */
+.hero-photo::after { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, var(--nero) 0%, rgba(25, 23, 22, 0) 12%, rgba(25, 23, 22, 0) 80%, var(--nero) 100%); }
+@media (min-width: 768px) { .hero-photo { aspect-ratio: 4 / 3; } }
 .hero-copy { display: grid; gap: 18px; justify-items: start; }
 .hero .kicker { margin: 0; }
 .hero-name { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(52px, 19vw, 120px); line-height: 0.92; letter-spacing: -0.01em; }
-.hero-role { display: block; margin-top: clamp(22px, 0.22em, 44px); font-family: var(--sans); font-size: 15px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; line-height: 1.4; }
+.hero-role { display: block; margin-top: clamp(22px, 4.6vw, 44px); font-family: var(--sans); font-size: 15px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; line-height: 1.4; }
 .hero-rule { display: block; width: 56px; height: 1px; background: var(--bronzo); }
 .hero-line { margin: 0; max-width: 34ch; font-size: 18px; line-height: 1.55; color: var(--pietra-2); }
 .hero .btn { margin-top: 6px; }
@@ -407,10 +406,15 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .top-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; text-decoration: none; font-size: 15px; letter-spacing: 0.04em; }
   .top-nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--bronzo); }
 
-  .hero { grid-template-columns: 1fr 1fr; padding: 0 0 0 max(var(--gutter), calc((100% - var(--max)) / 2)); }
-  .hero-copy { align-self: center; padding: 140px 56px 64px 0; }
-  .hero-photo { order: 0; margin: 0; height: auto; min-height: 100vh; min-height: 100svh; }
-  .hero-photo::after { background: linear-gradient(90deg, var(--nero) 0%, rgba(25, 23, 22, 0) 22%), linear-gradient(180deg, rgba(25, 23, 22, 0.5) 0%, rgba(25, 23, 22, 0) 25%); }
+  /* desktop: the 4:3 photo fills the hero, Giorgia on the right, the copy on the left over a dark gradient */
+  .is-home .top { position: absolute; background: none; padding-bottom: 0; }
+  .hero { position: relative; min-height: 100vh; min-height: 100svh; padding: 0 max(var(--gutter), calc((100% - var(--max)) / 2)); isolation: isolate; }
+  .hero-copy { align-self: center; max-width: min(40vw, 600px); padding: 140px 0 64px; }
+  .hero-photo { position: absolute; inset: 0; z-index: -1; margin: 0; aspect-ratio: auto; }
+  .hero-photo img { object-position: 70% 20%; }
+  .hero-photo::after { background:
+    linear-gradient(90deg, var(--nero) 0%, rgba(25, 23, 22, 0.92) 28%, rgba(25, 23, 22, 0.55) 46%, rgba(25, 23, 22, 0) 62%),
+    linear-gradient(180deg, rgba(25, 23, 22, 0.6) 0%, rgba(25, 23, 22, 0) 18%, rgba(25, 23, 22, 0) 80%, var(--nero) 100%); }
   .hero-name { font-size: clamp(96px, 10.4vw, 150px); }
   .hero-line { font-size: 20px; }
   .hero-role { font-size: 16px; }
