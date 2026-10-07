@@ -30,9 +30,9 @@ if (menu && menuBtn) {
   menu.querySelectorAll('nav a').forEach((a) => a.addEventListener('click', () => menu.close()));
 }
 
-/* ---------- "Cosa include" and the method pillars: the button owns the state, CSS animates the panel ---------- */
+/* ---------- "Cosa include", the method pillars and the FAQ: the button owns the state, CSS animates the panel ---------- */
 
-document.querySelectorAll('.include-btn, .pillar-btn').forEach((btn) => {
+document.querySelectorAll('.include-btn, .pillar-btn, .faq-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     btn.setAttribute('aria-expanded', String(btn.getAttribute('aria-expanded') !== 'true'));
   });

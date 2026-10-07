@@ -56,6 +56,11 @@ File usati così come sono, mai ridisegnati né ricolorati.
 - WhatsApp è l'azione principale: "Scrivi a Giorgia" nell'hero (con "Scopri il metodo" come link), "Chiedi a Giorgia" sotto il ciclo, bottone fisso dopo l'hero anche su desktop (pillola in basso a destra), più header, card livelli, chiusura e footer.
 - Recensioni: blocco chiaro in home (dopo "Dove nasce il metodo") e in Chi sono (dopo la mappa): 5 stelle, "5 su 5 su Google", invito "Ti alleni con Giorgia? Lascia la tua recensione." e link alla scheda Google di Weal House (cid 5456743492543164649). Il voto (5,0, 22 recensioni al 7/10/2026) è scritto a mano: aggiornarlo se cambia.
 
+## 2e. Voce e domande frequenti (ottobre 2026)
+- I bottoni WhatsApp parlano in prima persona (Giorgia): "Scrivimi su WhatsApp", "Chiedimelo su WhatsApp", "Scrivimi ora".
+- Livelli: sezione "Domande frequenti" (#faq) dopo Il percorso, 8 domande in prima persona con prezzi, differenze tra livelli, durata, principianti, online/palestra, alimentazione, come iniziare (link WhatsApp). Stessa apertura di "Cosa include". JSON-LD FAQPage. In home, link "Domande frequenti" accanto a "Scegli il tuo livello".
+- Le risposte usano solo fatti già sul sito: da far confermare a Giorgia.
+
 ## 3. Elemento firma: il neon
 Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, riempite, bagliore freddo) alternate a parole rosse spesse e contornate (Jost 600 maiuscolo, `-webkit-text-stroke`, riempimento trasparente, bagliore rosso). Un solo punto: la USP della home, che dall'ottobre 2026 è solo la frase "Non devi scegliere / tra estetica / e performance." resa come l'insegna "Be stronger than your excuses" (bianco, rosso a tubo, bianco), centrata; le tre righe inglesi BUILD/DEVELOP/ELEVATE sono state tolte. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).
 

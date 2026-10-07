@@ -1,5 +1,6 @@
 """Writes index.html, livelli.html and chi-sono.html (static output, committed).
 Shared header, menu and footer live here once; the official logo files are used as they are. Run: python3 tools/build-pages.py"""
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -96,7 +97,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
     <p class="foot-credit">Sito realizzato da <a href="https://transiva.it" target="_blank" rel="noopener">Transiva</a></p>
   </footer>
 
-  {wa_btn(wa_msg, 'Scrivi a Giorgia', 'fab')}
+  {wa_btn(wa_msg, 'Scrivimi su WhatsApp', 'fab')}
 </body>
 </html>
 """
@@ -164,7 +165,7 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
         <span class="hero-rule" aria-hidden="true"></span>
         <p class="hero-line">Non allenarti solo per cambiare il tuo corpo. Allenalo per renderlo forte, performante e capace.</p>
         <div class="hero-actions">
-          {wa_btn('Ciao Giorgia, vorrei informazioni su GP METHOD.', 'Scrivi a Giorgia')}
+          {wa_btn('Ciao Giorgia, vorrei informazioni su GP METHOD.', 'Scrivimi su WhatsApp')}
           <a class="text-link" href="#metodo">Scopri il metodo</a>
         </div>
         <p class="hero-proof">Co-fondatrice di <strong>Weal House</strong> · Via Michele Amari 51, Roma</p>
@@ -198,7 +199,7 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
       {steps()}
       <div class="ask">
         <p class="ask-q">Non sai da dove partire?</p>
-        {wa_btn('Ciao Giorgia, non so quale livello di GP METHOD fa per me.', 'Chiedi a Giorgia', 'btn btn--secondary')}
+        {wa_btn('Ciao Giorgia, non so quale livello di GP METHOD fa per me.', 'Chiedimelo su WhatsApp', 'btn btn--secondary')}
       </div>
     </section>
 
@@ -209,7 +210,10 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
         <li><a class="row" href="livelli.html#coaching"><span class="row-name">Coaching <span class="badge">Consigliato</span></span><span class="row-price"><strong>€249</strong> <span>/ 6 settimane</span></span></a></li>
         <li><a class="row" href="livelli.html#elite"><span class="row-name">Elite</span><span class="row-price"><strong>€399</strong> <span>/ 6 settimane</span></span></a></li>
       </ul>
-      <a class="btn btn--dark" href="livelli.html">Scegli il tuo livello</a>
+      <div class="preview-actions">
+        <a class="btn btn--dark" href="livelli.html">Scegli il tuo livello</a>
+        <a class="text-link" href="livelli.html#faq">Domande frequenti</a>
+      </div>
     </section>
 
     <section class="place" aria-labelledby="place-title">
@@ -269,6 +273,43 @@ for key, name, price, badge, line, sign, cta, msg, items in LEVELS:
           </div>
           {wa_btn(msg, cta, btn)}
         </article>""")
+# Questions and answers, in Giorgia's voice. Only facts already on the site (prices, level contents, the path).
+FAQ_START = ('Come si inizia?',
+             'Scrivimi su WhatsApp dicendomi il livello che ti interessa: partiamo dall\'assessment.')
+FAQ = [
+    ("Quanto costa?", "Essential €149, Coaching €249, Elite €399. Il prezzo è per un ciclo di 6 settimane."),
+    ("Che differenza c'è tra i livelli?",
+     "Essential è una programmazione strutturata senza assistenza continua, 3-4 giorni a settimana. "
+     "Con Coaching costruisco il programma su di te dopo assessment e video call: 3-5 giorni, con check ogni 2 settimane. "
+     "Elite è il livello più alto: programmazione completamente individuale, check settimanale e due call 1:1."),
+    ("Quale livello scelgo?",
+     "Se vuoi seguire una programmazione in autonomia, Essential. Se vuoi che ti segua da vicino, Coaching: è quello che consiglio. "
+     "Se vuoi il massimo del supporto, anche su performance e recupero, Elite. Se hai dubbi, lo scegliamo insieme."),
+    ("Quanto dura un percorso?",
+     "Un ciclo dura 6 settimane e si chiude con un check finale (Essential), una review (Coaching) o la GP Performance Review (Elite)."),
+    ("Sono all'inizio: va bene lo stesso?",
+     "Sì. Prima di costruire la programmazione valuto livello, obiettivo, disponibilità, attrezzatura e capacità: ogni percorso parte da te."),
+    ("Mi alleno online o in palestra?",
+     "Il coaching è online: ricevi la programmazione e ti alleni dove ti alleni di solito. L'attrezzatura che hai a disposizione è una delle cose che valuto all'inizio."),
+    ("Dai indicazioni sull'alimentazione?",
+     "Con Coaching sì: indicazioni generali su alimentazione sportiva e integrazione, nell'ambito delle competenze di un personal trainer."),
+]
+
+
+def faq_item(i, q, a_html):
+    return (f'<li><h3 class="faq-q"><button class="faq-btn" type="button" aria-expanded="false" aria-controls="faq-{i}">'
+            f'{q}<span class="plus" aria-hidden="true"></span></button></h3>'
+            f'<div class="more-panel" id="faq-{i}"><div><p>{a_html}</p></div></div></li>')
+
+
+faq_items = "".join(faq_item(i, q, a) for i, (q, a) in enumerate(FAQ, 1))
+faq_items += faq_item(len(FAQ) + 1, FAQ_START[0],
+                      'Scrivimi su WhatsApp dicendomi il livello che ti interessa: partiamo dall\'assessment. '
+                      '<a class="text-link" data-wa="Ciao Giorgia, vorrei iniziare GP METHOD. Il livello che mi interessa è: " href="#contatti">Scrivimi ora</a>')
+faq_ld = json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ + [FAQ_START]]},
+    ensure_ascii=False)
+
 livelli = f"""    <section class="intro" aria-labelledby="levels-title">
       <h1 id="levels-title">Scegli il tuo livello.</h1>
       <p class="lead">Stessa filosofia, tre livelli di assistenza. Ogni ciclo dura 6 settimane.</p>
@@ -283,13 +324,19 @@ livelli = f"""    <section class="intro" aria-labelledby="levels-title">
       {steps('steps--dark', uid='path')}
     </section>
 
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title" class="title">Domande frequenti</h2>
+      <ul class="faq-list" role="list">{faq_items}</ul>
+    </section>
+
     <section class="close" aria-labelledby="close-title">
       <h2 id="close-title" class="title">Iniziamo?</h2>
       {wa_btn('Ciao Giorgia, vorrei informazioni sui livelli di GP METHOD.', 'Scrivimi su WhatsApp')}
     </section>"""
 page("livelli.html", "Livelli e prezzi | GP METHOD, coaching online",
      "Essential €149, Coaching €249, Elite €399: tre livelli di coaching online GP METHOD con Giorgia Piras, ogni ciclo dura 6 settimane.",
-     livelli, "Ciao Giorgia, vorrei informazioni sui livelli di GP METHOD.")
+     livelli, "Ciao Giorgia, vorrei informazioni sui livelli di GP METHOD.",
+     extra_head=f'  <script type="application/ld+json">{faq_ld}</script>\n')
 
 # ---------------------------------------------------------------- chi sono
 gallery = [("neon-weal-house", "Insegna al neon Weal House sul muro a doghe di legno", 1086, 1448),

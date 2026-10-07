@@ -317,6 +317,21 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .ask { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; padding-top: 28px; border-top: 1px solid var(--line); }
 .ask-q { font-family: var(--serif); font-size: clamp(24px, 6vw, 32px); line-height: 1.15; }
 
+/* ---------- Levels page: questions and answers (same open/close as "Cosa include") ---------- */
+
+.faq { display: grid; gap: 28px; padding: var(--section) var(--gutter); }
+.faq-list { border-top: 1px solid var(--line); }
+.faq-list li { border-bottom: 1px solid var(--line); }
+.faq-q { font-family: var(--sans); font-size: 18px; font-weight: 500; line-height: 1.35; }
+.faq-btn {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  width: 100%; min-height: 64px; padding: 16px 0; border: 0; background: none;
+  color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.faq .more-panel p { max-width: 60ch; padding-bottom: 22px; font-size: 16px; line-height: 1.6; color: var(--pietra-2); }
+.faq .more-panel .text-link { color: var(--pietra); }
+.preview-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
+
 /* ---------- Reviews: Weal House on Google ---------- */
 
 .reviews { display: grid; justify-items: start; gap: 14px; padding: var(--section) var(--gutter); }
@@ -371,7 +386,8 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   grid-template-rows: 0fr; opacity: 0; visibility: hidden;
   transition: grid-template-rows 220ms var(--ease-out), opacity 220ms var(--ease-out), visibility 0s linear 220ms;
 }
-.js [aria-expanded="true"] + .include-panel, .js [aria-expanded="true"] + .more-panel {
+.js [aria-expanded="true"] + .include-panel, .js [aria-expanded="true"] + .more-panel,
+.js .faq-q:has(> [aria-expanded="true"]) + .more-panel {  /* FAQ: the button sits inside the h3 */
   grid-template-rows: 1fr; opacity: 1; visibility: visible;
   transition: grid-template-rows 220ms var(--ease-out), opacity 220ms var(--ease-out), visibility 0s;
 }
@@ -440,6 +456,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 /* ---------- Hover: real pointers only ---------- */
 
 @media (hover: hover) and (pointer: fine) {
+  .faq-btn:hover { text-decoration: underline; text-decoration-color: var(--bronzo); }
   .pillar-btn:hover .pillar-word { text-decoration: underline; text-decoration-color: var(--bronzo); text-decoration-thickness: 1px; text-underline-offset: 0.12em; }
   .step:hover .step-w { text-decoration: underline; text-decoration-color: var(--bronzo); text-underline-offset: 6px; }
   .btn--primary:hover { background: #fff; }
@@ -490,7 +507,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .pillar-word { font-size: clamp(56px, 6.4vw, 96px); }
   .pillar-line { font-size: 18px; }
   /* one content width for every section: equal side margins, everything left-aligned */
-  .usp, .method, .preview, .cycle, .path, .who, .gallery-sec, .map, .reviews, .close, .intro, .cards, .place-copy, .foot {
+  .usp, .method, .preview, .cycle, .path, .faq, .who, .gallery-sec, .map, .reviews, .close, .intro, .cards, .place-copy, .foot {
     padding-left: max(var(--gutter), calc((100% - var(--max)) / 2));
     padding-right: max(var(--gutter), calc((100% - var(--max)) / 2));
   }
