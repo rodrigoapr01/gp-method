@@ -15,7 +15,6 @@ WA_ICON = ('<svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="
 # The full logo with the circle is only used at 160px or wider: below that its small lettering is unreadable.
 BRAND = "assets/brand/lineare"
 LOGO_FULL = f"{BRAND}/svg/GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg"
-MONOGRAM = f"{BRAND}/svg/GP-monogramma-lineare_pietra.svg"
 
 
 def logo_full(cls, size, eager=False):
@@ -73,7 +72,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
 <body class="{'is-home' if home else 'is-inner'}">
   <a class="skip" href="#main">Vai al contenuto</a>
   <header class="top">
-    <a class="brand" href="index.html" aria-label="GP METHOD"><img class="brand-mono" src="{MONOGRAM}" width="44" height="36" alt="GP METHOD"><span class="brand-name" aria-hidden="true">GP METHOD</span></a>
+    <a class="brand" href="index.html" aria-label="GP METHOD">{logo_full('brand-logo', 160, eager=True)}</a>
     <nav class="top-nav" aria-label="Principale">{links}</nav>
     {wa_btn(wa_msg, 'Scrivimi', 'btn btn--secondary btn--sm top-wa')}
     <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu" aria-label="Apri il menu"><span></span><span></span></button>

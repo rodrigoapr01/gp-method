@@ -105,13 +105,12 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   display: flex; align-items: center; gap: 12px;
   padding: calc(env(safe-area-inset-top, 0px) + 12px) max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
 }
-.brand { display: flex; align-items: center; gap: 12px; min-width: 44px; min-height: 44px; color: var(--pietra); margin-right: auto; text-decoration: none; }
-/* header: the circle logo would be under 160px here, so the monogram + the name */
-.brand-mono { width: auto; height: 36px; }
-.brand-name { font-size: 13px; font-weight: 500; letter-spacing: 0.22em; white-space: nowrap; }
+.brand { display: block; flex-shrink: 0; margin-right: auto; color: var(--pietra); }
+/* the official logo with circle, at the 160px minimum where its lettering still reads; the file has 10% empty margin, trimmed here */
+.brand-logo { display: block; width: 160px; max-width: none; height: auto; margin: -16px 0 -16px -16px; }
 .top-wa, .menu-btn { flex-shrink: 0; }
-/* the smallest phones have no room for the name next to "Scrivimi" and the menu: the monogram alone (the link still says GP METHOD) */
-@media (max-width: 359px) { .brand-name { display: none; } }
+/* the smallest phones: logo + menu only (WhatsApp is inside the menu) */
+@media (max-width: 379px) { .top .top-wa { display: none; } }
 .top-nav { display: none; }
 .top-wa { display: inline-flex; }
 .menu-btn {
@@ -272,7 +271,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 
 /* ---------- Inner pages: intro ---------- */
 
-.intro { display: grid; gap: 18px; padding: calc(env(safe-area-inset-top, 0px) + 120px) var(--gutter) 56px; }
+.intro { display: grid; gap: 18px; padding: calc(env(safe-area-inset-top, 0px) + 172px) var(--gutter) 56px; }
 .is-inner .intro h1 { font-size: clamp(36px, 9.4vw, 72px); max-width: 20ch; }
 
 /* ---------- Livelli: cards ---------- */
@@ -409,7 +408,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   /* desktop: the 4:3 photo fills the hero, Giorgia on the right, the copy on the left over a dark gradient */
   .is-home .top { position: absolute; background: none; padding-bottom: 0; }
   .hero { position: relative; min-height: 100vh; min-height: 100svh; padding: 0 max(var(--gutter), calc((100% - var(--max)) / 2)); isolation: isolate; }
-  .hero-copy { align-self: center; max-width: min(40vw, 600px); padding: 140px 0 64px; }
+  .hero-copy { align-self: center; max-width: min(40vw, 600px); padding: 176px 0 56px; }
   .hero-photo { position: absolute; inset: 0; z-index: -1; margin: 0; aspect-ratio: auto; }
   .hero-photo img { object-position: 70% 20%; }
   .hero-photo::after { background:
@@ -446,7 +445,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 
   .close { grid-template-columns: auto auto; justify-content: start; align-items: center; column-gap: 48px; }
 
-  .intro { padding-top: 168px; }
+  .intro { padding-top: 196px; }
 
   .cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));

@@ -42,7 +42,7 @@ Testo: "Giorgia Piras", "Personal trainer a Roma", filetto bronzo, una frase, un
 
 ## 2b. Logo ufficiale (assets/brand/lineare, approvato dalla cliente)
 File usati così come sono, mai ridisegnati né ricolorati.
-- Header (tutte le pagine): monogramma `svg/GP-monogramma-lineare_pietra.svg` alto 36px + "GP METHOD"; sotto 360px solo il monogramma.
+- Header (tutte le pagine): logo con cerchio `svg/GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg` a 160px (il minimo in cui le scritte si leggono); sotto 380px l'header mostra solo logo e menu (WhatsApp è dentro il menu).
 - Footer: stesso logo con cerchio, 180px.
 - Regola: il logo con cerchio mai sotto i 160px; sotto si usa il monogramma.
 - Favicon: `svg/favicon.svg`, `png/favicon-32.png`, `png/favicon-180.png`. OG: `png/GP-METHOD-lineare_con-cerchio_scuro.png` centrato su #191716 (`tools/build-assets.py`).
