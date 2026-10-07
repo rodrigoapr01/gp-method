@@ -48,7 +48,7 @@ File usati così come sono, mai ridisegnati né ricolorati.
 - Favicon: `svg/favicon.svg`, `png/favicon-32.png`, `png/favicon-180.png`. OG: `png/GP-METHOD-lineare_con-cerchio_scuro.png` centrato su #191716 (`tools/build-assets.py`).
 
 ## 3. Elemento firma: il neon
-Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, riempite, bagliore freddo) alternate a parole rosse spesse e contornate (Jost 600 maiuscolo, `-webkit-text-stroke`, riempimento trasparente, bagliore rosso). Un solo punto: la USP della home. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).
+Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, riempite, bagliore freddo) alternate a parole rosse spesse e contornate (Jost 600 maiuscolo, `-webkit-text-stroke`, riempimento trasparente, bagliore rosso). Un solo punto: la USP della home, che dall'ottobre 2026 è solo la frase "Non devi scegliere / tra estetica / e performance." resa come l'insegna "Be stronger than your excuses" (bianco, rosso a tubo, bianco), centrata; le tre righe inglesi BUILD/DEVELOP/ELEVATE sono state tolte. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).
 
 ## 4. Wireframe
 
@@ -119,7 +119,7 @@ Hero: testo in basso a sinistra su foto a tutto schermo. USP: titolo a sinistra,
 | Pagina · sezione | Parole |
 | --- | --- |
 | Home · hero | 4 + 7 + 7 + 3 = 21 |
-| Home · USP | 7 + 9 (neon) = 16 |
+| Home · USP | 7 (solo neon) |
 | Home · metodo | 4 + 3 + 6 + 4 = 17 |
 | Home · come funziona | 5 + 4 = 9 |
 | Home · livelli | 6 ("/ 6 settimane" ×3 escluso come prezzo) + 1 badge + 4 bottone = 11 |

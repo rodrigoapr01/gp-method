@@ -161,13 +161,12 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .hero .btn { margin-top: 6px; }
 .hero-proof { margin: 14px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; letter-spacing: 0.02em; color: var(--pietra-2); }
 .hero-proof strong { font-weight: 500; color: var(--pietra); }
-}
 
-/* ---------- Home: USP with the neon (the one signature moment) ---------- */
+/* ---------- Home: USP as a neon sign (the one signature moment, like "Be stronger than your excuses" at Weal House) ---------- */
 
-.usp { display: grid; gap: 40px; padding: var(--section) var(--gutter); }
-.usp .title { max-width: 16ch; }
-.neon { display: grid; gap: 0.36em; font-size: clamp(28px, 8.8vw, 54px); }
+.usp { display: grid; justify-items: center; padding: var(--section) var(--gutter); text-align: center; }
+.neon { display: grid; justify-items: center; gap: 0.3em; margin: 0; font-size: clamp(30px, 10.4vw, 84px); font-weight: inherit; letter-spacing: 0; }
+.neon-line { display: block; text-align: center; }
 .neon-line {
   position: relative;
   font-family: var(--sans);
@@ -418,8 +417,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .hero-line { font-size: 20px; }
   .hero-role { font-size: 16px; }
 
-  .usp { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; column-gap: 64px; }
-  .neon { font-size: clamp(26px, 3.2vw, 46px); }
+  .neon { font-size: clamp(56px, 5.6vw, 84px); }
   .neon-line { white-space: nowrap; }
 
   .pillars li { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: baseline; column-gap: 48px; padding: 28px 0; }
