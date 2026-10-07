@@ -401,6 +401,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 
 .who { display: grid; gap: 14px; justify-items: start; padding: var(--section) var(--gutter); }
 .who .title { max-width: 24ch; }
+.who-social { display: flex; flex-wrap: wrap; gap: 4px 28px; }
 .gallery-sec { display: grid; gap: 28px; padding: var(--section) var(--gutter); }
 .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .tile { display: block; width: 100%; padding: 0; border: 0; border-radius: 14px; overflow: hidden; background: none; cursor: zoom-in; transition: transform 160ms var(--ease-out); }

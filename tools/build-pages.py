@@ -91,7 +91,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
 
   <footer class="foot" id="contatti">
     <a class="foot-brand" href="index.html" aria-label="GP METHOD">{logo_full('foot-logo', 180)}</a>
-    <nav class="foot-nav" aria-label="Pagine">{links}<a href="https://www.instagram.com/lapiras93/" target="_blank" rel="noopener">Instagram</a></nav>
+    <nav class="foot-nav" aria-label="Pagine">{links}<a href="https://www.instagram.com/lapiras93/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/giorgia.piras.3" target="_blank" rel="noopener">Facebook</a></nav>
     <p class="foot-address">Weal House, Via Michele Amari 51, Roma</p>
     {wa_btn(wa_msg, 'Scrivimi su WhatsApp', 'btn btn--secondary')}
     <p class="foot-credit">Sito realizzato da <a href="https://transiva.it" target="_blank" rel="noopener">Transiva</a></p>
@@ -349,7 +349,7 @@ jsonld = """  <script type="application/ld+json">
   {"@context": "https://schema.org", "@graph": [
     {"@type": "Person", "name": "Giorgia Piras", "jobTitle": "Personal trainer",
      "url": "https://rodrigoapr01.github.io/gp-method/chi-sono.html",
-     "sameAs": ["https://www.instagram.com/lapiras93/"],
+     "sameAs": ["https://www.instagram.com/lapiras93/", "https://www.facebook.com/giorgia.piras.3"],
      "worksFor": {"@id": "#wealhouse"}},
     {"@type": "LocalBusiness", "@id": "#wealhouse", "name": "Weal House",
      "address": {"@type": "PostalAddress", "streetAddress": "Via Michele Amari 51", "addressLocality": "Roma", "addressCountry": "IT"},
@@ -364,7 +364,10 @@ chi = f"""    <section class="intro" aria-labelledby="about-title">
 
     <section class="who light" aria-labelledby="who-title">
       <h2 id="who-title" class="title">Giorgia Piras, personal trainer a Roma e co-fondatrice di Weal House.</h2>
-      <a class="text-link text-link--dark" href="https://www.instagram.com/lapiras93/" target="_blank" rel="noopener">@lapiras93</a>
+      <p class="who-social">
+        <a class="text-link text-link--dark" href="https://www.instagram.com/lapiras93/" target="_blank" rel="noopener">Instagram @lapiras93</a>
+        <a class="text-link text-link--dark" href="https://www.facebook.com/giorgia.piras.3" target="_blank" rel="noopener">Facebook</a>
+      </p>
     </section>
 
     <section class="gallery-sec" aria-labelledby="gallery-title">
