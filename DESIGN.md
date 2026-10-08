@@ -43,6 +43,13 @@ Foto di Giorgia in studio su fondo neutro scuro (`assets/hero/`, `?v=8`): vertic
 - `theme-color` #191716 (scuro) / #EFE9E2 (chiaro), `apple-mobile-web-app-status-bar-style` black-translucent.
 Testo: "Giorgia Piras", "Personal trainer a Roma", filetto bronzo, una frase, bottone WhatsApp, riga Weal House.
 
+## 2h. Preloader (ottobre 2026)
+Solo alla prima visita della sessione (`sessionStorage` `gp-pl`), tutte le pagine. Stile e script inline nel `<head>` (`PRELOADER_HEAD` in `tools/build-pages.py`), SVG inline del logo piatto con cerchio (`assets/brand/lineare`), largo 140px / 180px.
+- 0–700ms il GP si disegna in un unico tratto (arco G → barra → asta P → pancia P), 500–1000ms il cerchio in senso orario dall'alto, 900–1200ms METHOD e tagline salgono di 6px; 1200–1600ms dissolvenza + scala 0.96, poi rimosso dal DOM. Solo transform, opacity, stroke-dashoffset.
+- Tenuto finché la pagina non è letta, mai oltre 3s; si salta con un tocco, un clic o un tasto. Scroll bloccato durante (`overflow: hidden` + `scrollbar-gutter: stable`, nessun salto).
+- Senza JS non compare; con movimento ridotto il logo completo fermo per 400ms, poi la dissolvenza.
+- Scuro: fondo #191716, gradiente #F7EAD6 → #B08A64. /chiaro/: fondo #EFE9E2, #8A6E58 → #2E2620.
+
 ## 2b. Logo ufficiale: tondo in metallo, senza sfondo (ottobre 2026)
 `assets/brand/GP-logo-metallo-chiaro.*` (metallo chiaro) nelle pagine scure, `GP-logo-metallo-scuro.*` (metallo scuro) in /chiaro/; PNG trasparente + WebP 160/320/640 con srcset, alt "GP METHOD", width/height espliciti.
 - Header: solo il logo tondo, 64px mobile / 80px desktop, `fetchpriority="high"`; l'header non si compatta allo scroll.

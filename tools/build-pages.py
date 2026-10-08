@@ -40,6 +40,83 @@ def wa_btn(msg, label, cls="btn btn--primary"):
     return f'<a class="{cls}" data-wa="{msg}" href="#contatti">{WA_ICON}<span>{label}</span></a>'
 
 
+# ---------------------------------------------------------------- preloader (first visit of the session only)
+# The flat circle logo from assets/brand/lineare, inline so it can be drawn: GP in one continuous stroke
+# (G arc -> bar -> P stem -> belly -> stem), the ring clockwise from the top like a stopwatch hand, then METHOD and
+# the tagline. Everything lives in the <head> (style + script) so it never waits for the network.
+# No JS: never shown. Reduced motion: the finished logo, still, for 400ms, then the fade.
+def _preloader_svg():
+    import re
+    src = (ROOT / "assets/brand/lineare/svg/GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg").read_text()
+    src = re.sub(r"<metadata>.*?</metadata>", "", src, flags=re.S)
+    paths = re.findall(r'<path d="([^"]*)"', src)
+    r1 = lambda d: re.sub(r"-?\d+\.\d+", lambda m: ("%.1f" % float(m.group())).rstrip("0").rstrip("."), d)
+    method, tagline = r1(paths[1]), r1(paths[2])
+    rule = re.search(r'<rect x="([^"]+)" y="([^"]+)" width="([^"]+)" height="([^"]+)"', src).groups()
+    # the monogram path, rewritten as ONE subpath: after the G's bar it runs back along the bar (invisible) into the P
+    gp = ("M538.1,341.2 A128,128 0 1 0 565.3,420 L459,420 L565.3,420 L565.3,292 "
+          "L626.7,292 A64,64 0 0 1 626.7,420 L565.3,420 L565.3,598")
+    ring = "M500,100 A400,400 0 1 1 500,900 A400,400 0 1 1 500,100"
+    return f"""<div class="pl" id="preloader" aria-hidden="true">
+    <svg class="pl-logo" viewBox="90 90 820 820" focusable="false">
+      <defs><linearGradient id="pl-g" x1="200" y1="150" x2="800" y2="850" gradientUnits="userSpaceOnUse"><stop offset="0" class="pl-a"/><stop offset="1" class="pl-b"/></linearGradient></defs>
+      <path class="pl-ring" d="{ring}" pathLength="1"/>
+      <path class="pl-gp" d="{gp}" pathLength="1"/>
+      <g class="pl-text"><circle cx="565.3" cy="420" r="5.6"/><path d="{method}"/><rect x="{rule[0]}" y="{rule[1]}" width="{rule[2]}" height="{rule[3]}"/><path d="{tagline}"/></g>
+    </svg>
+  </div>"""
+
+
+PRELOADER_SVG = _preloader_svg()
+
+PRELOADER_HEAD = """  <style>
+    :root { --pl-bg: #191716; --pl-a: #F7EAD6; --pl-b: #B08A64; }
+    .pl { display: none; }
+    html.pl-on { overflow: hidden; scrollbar-gutter: stable; }  /* scroll locked, no jump when the scrollbar returns */
+    html.pl-on .pl { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--pl-bg); touch-action: none;
+      transition: opacity 400ms cubic-bezier(0.23, 1, 0.32, 1); }
+    .pl-logo { width: 140px; height: auto; overflow: visible; transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1); }
+    @media (min-width: 900px) { .pl-logo { width: 180px; } }
+    .pl-a { stop-color: var(--pl-a); } .pl-b { stop-color: var(--pl-b); }
+    .pl-gp, .pl-ring { fill: none; stroke: url(#pl-g); stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+    .pl-gp { stroke-width: 7; animation: pl-draw 700ms cubic-bezier(0.77, 0, 0.175, 1) both; }
+    .pl-ring { stroke-width: 3.5; animation: pl-draw 500ms cubic-bezier(0.77, 0, 0.175, 1) 500ms both; }
+    .pl-text { fill: url(#pl-g); opacity: 0; transform: translateY(6px); transform-box: fill-box;
+      animation: pl-rise 300ms cubic-bezier(0.23, 1, 0.32, 1) 900ms both; }
+    @keyframes pl-draw { to { stroke-dashoffset: 0; } }
+    @keyframes pl-rise { to { opacity: 1; transform: none; } }
+    html.pl-out .pl { opacity: 0; }
+    html.pl-out .pl-logo { transform: scale(0.96); }
+    @media (prefers-reduced-motion: reduce) {
+      .pl-gp, .pl-ring, .pl-text { animation: none; stroke-dashoffset: 0; opacity: 1; transform: none; }
+      html.pl-out .pl-logo { transform: none; }
+    }
+  </style>
+  <script>
+    /* preloader: once per session; 1.6s in all (800ms with reduced motion), held until the page is parsed, never past 3s; skippable */
+    (function () {
+      try { if (sessionStorage.getItem('gp-pl')) return; sessionStorage.setItem('gp-pl', '1'); } catch (e) { return; }
+      var d = document.documentElement, t0 = Date.now();
+      var hold = matchMedia('(prefers-reduced-motion: reduce)').matches ? 400 : 1200, fade = 400, cap = 3000;
+      d.classList.add('pl-on');
+      var done = false;
+      function finish() {
+        if (done) return; done = true;
+        d.classList.add('pl-out');
+        setTimeout(function () { var p = document.getElementById('preloader'); if (p) p.remove(); d.classList.remove('pl-on', 'pl-out'); }, fade);
+      }
+      function check() {
+        if (document.readyState !== 'loading' || Date.now() - t0 >= cap - fade) finish(); else setTimeout(check, 50);
+      }
+      setTimeout(check, hold);
+      // a tap, a click or a key skips it: it is a welcome, it should never hold anyone up
+      addEventListener('pointerdown', finish, { once: true });
+      addEventListener('keydown', finish, { once: true });
+    })();
+  </script>
+"""
+
+
 # ---------------------------------------------------------------- /chiaro/ (light preview for the client)
 # Same pages, same assets, same texts, same logo: only the colours change (chiaro/css/tema-chiaro.css).
 # noindex + canonical to the main site, since it is only a preview.
@@ -56,6 +133,7 @@ def write_chiaro(file, html):
         html = html[:a] + head.replace("GP-logo-metallo-chiaro", "@@KEEP@@") + html[b:]
     html = html.replace("GP-logo-metallo-chiaro", "GP-logo-metallo-scuro")  # dark metal on avorio
     html = html.replace("@@KEEP@@", "GP-logo-metallo-chiaro")
+    html = html.replace("--pl-bg: #191716; --pl-a: #F7EAD6; --pl-b: #B08A64;", "--pl-bg: #EFE9E2; --pl-a: #8A6E58; --pl-b: #2E2620;")
     html = re.sub(r'(?<=["\s,])assets/', '../assets/', html)  # every local asset, srcset entries included
     html = html.replace('href="styles.css">', 'href="../styles.css">\n  <link rel="stylesheet" href="css/tema-chiaro.css">')
     html = html.replace('src="main.js"', 'src="../main.js"')
@@ -99,11 +177,12 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="styles.css">
+{PRELOADER_HEAD}  <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add('js')</script>
   <script src="main.js" defer></script>
 {extra_head}</head>
 <body class="{'is-home' if home else 'is-inner'}">
+  {PRELOADER_SVG}
   <a class="skip" href="#main">Vai al contenuto</a>
   <header class="top">
     <a class="brand" href="index.html">{logo_round('brand-logo', 80, eager=True)}</a>
