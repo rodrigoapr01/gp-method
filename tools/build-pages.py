@@ -206,10 +206,10 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
       </div>
       <figure class="hero-photo">
         <picture>
-          <source media="(max-width: 767px)" type="image/webp" srcset="assets/hero/GP_hero_giorgia_mobile_4x5-900.webp?v=6 900w, assets/hero/GP_hero_giorgia_mobile_4x5.webp?v=6 1395w" sizes="100vw" width="1395" height="1744">
-          <source media="(max-width: 767px)" srcset="assets/hero/GP_hero_giorgia_mobile_4x5.jpg?v=6" width="1395" height="1744">
-          <source type="image/webp" srcset="assets/hero/GP_hero_giorgia_4x3-1280.webp?v=6 1280w, assets/hero/GP_hero_giorgia_4x3.webp?v=6 2336w" sizes="100vw" width="2336" height="1744">
-          <img src="assets/hero/GP_hero_giorgia_4x3.jpg?v=6" width="2336" height="1744" alt="Giorgia Piras, personal trainer, nella palestra Weal House a Roma" fetchpriority="high" decoding="async">
+          <source media="(max-width: 767px)" type="image/webp" srcset="assets/hero/GP_hero_giorgia_mobile_studio-900.webp?v=7 900w, assets/hero/GP_hero_giorgia_mobile_studio.webp?v=7 1920w" sizes="100vw" width="1920" height="3395">
+          <source media="(max-width: 767px)" srcset="assets/hero/GP_hero_giorgia_mobile_studio.jpg?v=7" width="1920" height="3395">
+          <source type="image/webp" srcset="assets/hero/GP_hero_giorgia_desktop_studio-1280.webp?v=7 1280w, assets/hero/GP_hero_giorgia_desktop_studio.webp?v=7 1920w" sizes="100vw" width="1920" height="1086">
+          <img src="assets/hero/GP_hero_giorgia_desktop_studio.jpg?v=7" width="1920" height="1086" alt="Giorgia Piras, personal trainer" fetchpriority="high" decoding="async">
         </picture>
       </figure>
     </section>

@@ -35,7 +35,7 @@
 }
 
 /* hero photo on phones: fades into avorio at the bottom (transparent avorio stops, so no grey band) */
-.hero-photo::after { background: linear-gradient(180deg, rgba(239, 233, 226, 0) 0%, rgba(239, 233, 226, 0) 62%, #EFE9E2 100%); }
+.hero-photo::after { background: linear-gradient(180deg, rgba(239, 233, 226, 0) 0%, rgba(239, 233, 226, 0) 70%, #EFE9E2 100%); }
 
 /* header: solid avorio on the inner pages; on the home it floats over the photo (see the hero rules) */
 .is-inner .top { background: var(--nero); padding-bottom: 12px; }
@@ -43,6 +43,7 @@
 /* home on phones: header over the photo, light on the dark gradient (light metal logo, see build-pages) */
 @media (max-width: 899px) {
   .is-home .top .menu-btn span { background: #E0E2DB; }
+  .is-home .top .top-wa { color: #E0E2DB; }  /* 768-899px: the button is shown, over the photo */
 }
 
 /* buttons: primary espresso / avorio, secondary bronze border */
@@ -65,7 +66,7 @@
   .is-home .top::before { display: none; }
   .is-home .top-nav a, .is-home .top .top-wa { color: #E0E2DB; }
   .hero-photo { left: 45%; }
-  .hero-photo::after { background:
-    linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0) 140px),
-    linear-gradient(90deg, #EFE9E2 0%, rgba(239, 233, 226, 0) 10%); }
+  .hero-photo img { object-position: 80% 25%; }  /* the 16:9 studio photo: Giorgia in the right column */
+  /* the studio backdrop is dark: a clean edge against the avorio (a fade would read as a grey shadow) */
+  .hero-photo::after { background: linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0) 140px); }
 }
