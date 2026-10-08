@@ -105,13 +105,11 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   display: flex; align-items: center; gap: 12px;
   padding: calc(env(safe-area-inset-top, 0px) + 12px) max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
 }
-.brand { display: flex; align-items: center; gap: 10px; min-width: 44px; min-height: 44px; margin-right: auto; color: var(--pietra); text-decoration: none; }
-/* header: the monogram (the circle logo would be under 160px here) + the name */
-.brand-mono { display: block; width: auto; height: 34px; }
-.brand-name { font-size: 13px; font-weight: 500; letter-spacing: 0.22em; white-space: nowrap; }
+.brand { display: block; flex-shrink: 0; margin-right: auto; border-radius: 50%; }
+/* the round metal logo, alone: 64px on phones, 80px on desktop */
+.brand picture, .brand-logo { display: block; }
+.brand-logo { width: 64px; height: 64px; }
 .top-wa, .menu-btn { flex-shrink: 0; }
-/* the smallest phones: no room for the name next to "Scrivimi" and the menu */
-@media (max-width: 359px) { .brand-name { display: none; } }
 .top-nav { display: none; }
 .top-wa { display: inline-flex; }
 .menu-btn {
@@ -122,9 +120,12 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 
 .menu {
   position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0;
-  padding: calc(env(safe-area-inset-top, 0px) + 84px) var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 32px);
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 32px);
   border: 0; background: var(--nero); color: var(--pietra);
 }
+/* the round logo at the top of the open menu, 72px; the close button sits beside it */
+.menu-logo { justify-self: start; display: block; border-radius: 50%; }
+.menu-logo picture, .menu-logo-img { display: block; width: 72px; height: 72px; }
 .menu[open] { display: grid; align-content: start; gap: 32px; }
 .menu::backdrop { background: var(--nero); }
 .menu nav { display: grid; }
@@ -134,7 +135,7 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   border-bottom: 1px solid var(--line);
 }
 .menu-close {
-  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: var(--gutter);
+  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 26px); right: var(--gutter);
   display: grid; place-items: center; width: 44px; height: 44px;
   border: 1.5px solid var(--bronzo); border-radius: 50%; background: none; cursor: pointer;
 }
@@ -443,8 +444,10 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   padding: 56px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 96px);
   border-top: 1px solid var(--bronzo);
 }
-.foot-brand { color: var(--pietra); }
-.foot-logo { width: 180px; max-width: none; height: auto; margin: -18px 0 -18px -18px; } /* 10% empty margin in the file */
+
+.foot-brand { display: block; justify-self: start; border-radius: 50%; }
+.foot-brand picture { display: block; }
+.foot-logo { display: block; width: 140px; height: 140px; max-width: none; }
 .foot-nav { display: flex; flex-wrap: wrap; gap: 0 22px; }
 .foot-nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; text-decoration: none; }
 .foot-address { color: var(--pietra-2); }
@@ -547,7 +550,8 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .close { grid-template-columns: auto auto; justify-content: start; align-items: center; column-gap: 48px; }
 
   .intro { padding-top: 168px; }
-  .brand-mono { height: 40px; }
+  .brand-logo { width: 80px; height: 80px; }
+  .foot-logo { width: 160px; height: 160px; }
 
   .cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));

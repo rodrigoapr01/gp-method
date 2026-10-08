@@ -14,16 +14,17 @@ WA_ICON = ('<svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="
            '<path fill="currentColor" d="M9.1 7.9c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.3l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5a5.6 5.6 0 0 0 2.6 2.3c.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.5-.1l1.6.8c.2.1.3.2.3.3v.5c0 .5-.4 1.1-1 1.3-.6.3-1.6.3-3-.3a8.6 8.6 0 0 1-3.7-3.5c-.7-1.2-.6-2.3-.2-3.2z"/></svg>')
 
 
-# official logo (assets/brand/lineare), never redrawn or recoloured.
-# The full logo with the circle is only used at 160px or wider: below that its small lettering is unreadable.
-BRAND = "assets/brand/lineare"
-LOGO_FULL = f"{BRAND}/svg/GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg"
-MONOGRAM = f"{BRAND}/svg/GP-monogramma-lineare_pietra.svg"  # header: the circle logo would be under 160px there
+# official logo: the round metal medallion (assets/brand). The flat files in assets/brand/lineare stay for print only.
+LOGO_ROUND = "assets/brand/GP-logo-metallo-tondo"
+FAVICON = "assets/brand/favicon"
 
 
-def logo_full(cls, size, eager=False):
-    load = "" if eager else ' loading="lazy"'
-    return f'<img class="{cls}" src="{LOGO_FULL}" width="{size}" height="{size}" alt="GP METHOD"{load} decoding="async">'
+def logo_round(cls, size, eager=False):
+    """The round metal logo as WebP (160/320/640) with the PNG as fallback; size = the largest CSS width it is shown at."""
+    load = 'fetchpriority="high"' if eager else 'loading="lazy"'
+    return (f'<picture><source type="image/webp" sizes="{size}px" '
+            f'srcset="{LOGO_ROUND}-160.webp 160w, {LOGO_ROUND}-320.webp 320w, {LOGO_ROUND}-640.webp 640w">'
+            f'<img class="{cls}" src="{LOGO_ROUND}.png" width="{size}" height="{size}" alt="GP METHOD" {load} decoding="async"></picture>')
 
 
 def pic(name, alt, w=1086, h=1448, cls="", eager=False, sizes="100vw"):
@@ -38,7 +39,7 @@ def wa_btn(msg, label, cls="btn btn--primary"):
 
 
 # ---------------------------------------------------------------- /chiaro/ (light preview for the client)
-# Same pages, same assets, same texts: only colours (chiaro/css/tema-chiaro.css) and the dark logos change.
+# Same pages, same assets, same texts, same logo: only the colours change (chiaro/css/tema-chiaro.css).
 # noindex + canonical to the main site, since it is only a preview.
 # the metal logo on an avorio band, before "Iniziamo?" (home, both versions)
 LOGO_BAND = """    <section class="logo-band" aria-label="Logo GP METHOD">
@@ -53,8 +54,6 @@ LOGO_BAND = """    <section class="logo-band" aria-label="Logo GP METHOD">
 
 def write_chiaro(file, html):
     import re
-    html = html.replace("GP-monogramma-lineare_pietra.svg", "GP-monogramma-lineare_nero.svg")
-    html = html.replace("GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg", "GP-METHOD-lineare_con-cerchio_trasparente-scuro.svg")
     html = re.sub(r'(?<=["\s,])assets/', '../assets/', html)  # every local asset, srcset entries included
     html = html.replace('href="styles.css">', 'href="../styles.css">\n  <link rel="stylesheet" href="css/tema-chiaro.css">')
     html = html.replace('src="main.js"', 'src="../main.js"')
@@ -91,9 +90,9 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
   <meta property="og:image:alt" content="Logo GP METHOD">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{OG_IMAGE}">
-  <link rel="icon" href="{BRAND}/svg/favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="{BRAND}/png/favicon-32.png" sizes="32x32" type="image/png">
-  <link rel="apple-touch-icon" href="{BRAND}/png/favicon-180.png">
+  <link rel="icon" href="{FAVICON}/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="{FAVICON}/favicon-512.png" sizes="512x512" type="image/png">
+  <link rel="apple-touch-icon" href="{FAVICON}/favicon-180.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500;600&display=swap">
@@ -104,13 +103,14 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
 <body class="{'is-home' if home else 'is-inner'}">
   <a class="skip" href="#main">Vai al contenuto</a>
   <header class="top">
-    <a class="brand" href="index.html" aria-label="GP METHOD"><img class="brand-mono" src="{MONOGRAM}" width="49" height="40" alt="GP METHOD"><span class="brand-name" aria-hidden="true">GP METHOD</span></a>
+    <a class="brand" href="index.html">{logo_round('brand-logo', 80, eager=True)}</a>
     <nav class="top-nav" aria-label="Principale">{links}</nav>
     {wa_btn(wa_msg, 'Scrivimi', 'btn btn--secondary btn--sm top-wa')}
     <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu" aria-label="Apri il menu"><span></span><span></span></button>
   </header>
 
   <dialog class="menu" id="menu" aria-label="Menu">
+    <a class="menu-logo" href="index.html">{logo_round('menu-logo-img', 72)}</a>
     <button class="menu-close" type="button" aria-label="Chiudi il menu"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
     <nav aria-label="Menu">{links}</nav>
     {wa_btn(wa_msg, 'Scrivimi su WhatsApp')}
@@ -121,7 +121,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
   </main>
 
   <footer class="foot" id="contatti">
-    <a class="foot-brand" href="index.html" aria-label="GP METHOD">{logo_full('foot-logo', 180)}</a>
+    <a class="foot-brand" href="index.html">{logo_round('foot-logo', 160)}</a>
     <nav class="foot-nav" aria-label="Pagine">{links}<a href="https://www.instagram.com/lapiras93/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/giorgia.piras.3" target="_blank" rel="noopener">Facebook</a></nav>
     <p class="foot-address">Weal House, Via Michele Amari 51, Roma</p>
     <p class="foot-credit">Sito realizzato da <a href="https://transiva.it" target="_blank" rel="noopener">Transiva</a></p>

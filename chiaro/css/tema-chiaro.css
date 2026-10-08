@@ -58,7 +58,7 @@
 /* desktop hero: split, text on avorio at left, Giorgia at right (~55%), no dark gradient */
 @media (min-width: 900px) {
   .is-home .top { position: relative; background: var(--nero); padding-bottom: 12px; }
-  .hero { min-height: calc(100vh - 68px); min-height: calc(100svh - 68px); }
+  .hero { min-height: calc(100vh - 104px); min-height: calc(100svh - 104px); }
   .hero-copy { padding: 64px 0; }
   .hero-photo { left: 45%; }
   .hero-photo::after { background: linear-gradient(90deg, #EFE9E2 0%, rgba(239, 233, 226, 0) 10%); }

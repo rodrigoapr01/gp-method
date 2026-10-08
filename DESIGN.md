@@ -40,12 +40,13 @@ Foto di Giorgia a Weal House (`assets/hero/`): 5:4 sotto 768px, 4:3 da 768px; We
 - Da 900px: foto a tutta larghezza dell'hero (`object-position: 70% 20%`), Giorgia a destra, testo a sinistra su gradiente scuro.
 Testo: "Giorgia Piras", "Personal trainer a Roma", filetto bronzo, una frase, un bottone, riga Weal House.
 
-## 2b. Logo ufficiale (assets/brand/lineare, approvato dalla cliente)
-File usati così come sono, mai ridisegnati né ricolorati.
-- Header (tutte le pagine): monogramma `svg/GP-monogramma-lineare_pietra.svg` 34px (40px desktop) + "GP METHOD"; header sottile su mobile; sotto 360px solo il monogramma.
-- Footer: logo con cerchio, 180px (mai sotto 160px).
-- Regola: il logo con cerchio mai sotto i 160px; sotto si usa il monogramma.
-- Favicon: `svg/favicon.svg`, `png/favicon-32.png`, `png/favicon-180.png`.
+## 2b. Logo ufficiale: tondo in metallo (ottobre 2026)
+`assets/brand/GP-logo-metallo-tondo.png` (trasparente) + WebP 160/320/640 con srcset, su tutte le pagine (anche /chiaro/), alt "GP METHOD", width/height espliciti.
+- Header: solo il logo tondo, 64px mobile / 80px desktop, `fetchpriority="high"`; l'header non si compatta allo scroll.
+- Menu mobile aperto: logo tondo 72px in alto.
+- Footer: logo tondo 140px mobile / 160px desktop.
+- Favicon (`assets/brand/favicon/`): favicon-32 trasparente; favicon-180 (apple-touch-icon) e favicon-512 sul fondo #E2D9D0, perché i telefoni riempiono di nero la trasparenza.
+- I loghi piatti in `assets/brand/lineare/` restano per la stampa, ma non sono usati nelle pagine.
 - Anteprima dei link (og:image e twitter:image, tutte le pagine anche /chiaro/): `assets/og/og-gp-method.jpg?v=2`, logo in metallo alto 600px su #E2D9D0, 1200×630 (`tools/build-assets.py`). Se cambia l'immagine, alzare `?v=` in `OG_IMAGE`.
 - Home (scura e chiara): fascia avorio #EFE9E2 con il logo in metallo (`assets/chiaro/logo-metallo-900.*`, bordi sfumati), min(80vw, 420px), prima di "Iniziamo?".
 

@@ -1,6 +1,6 @@
 """Open Graph image for GP METHOD (link preview on WhatsApp, Instagram, Facebook): the metal logo, 600px high,
 centred on #E2D9D0 (the tone of the render, so its edges disappear), 1200x630. Run: python3 tools/build-assets.py
-Favicons come ready-made in assets/brand/lineare. After changing the image, bump ?v= in OG_IMAGE (build-pages.py)."""
+Favicons: assets/brand/favicon (from the round metal logo). After changing the image, bump ?v= in OG_IMAGE (build-pages.py)."""
 from pathlib import Path
 
 import numpy as np
