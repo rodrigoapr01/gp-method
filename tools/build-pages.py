@@ -14,13 +14,14 @@ WA_ICON = ('<svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="
            '<path fill="currentColor" d="M9.1 7.9c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.3l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5a5.6 5.6 0 0 0 2.6 2.3c.2.1.4.1.5-.1l.7-.8c.2-.2.3-.2.5-.1l1.6.8c.2.1.3.2.3.3v.5c0 .5-.4 1.1-1 1.3-.6.3-1.6.3-3-.3a8.6 8.6 0 0 1-3.7-3.5c-.7-1.2-.6-2.3-.2-3.2z"/></svg>')
 
 
-# official logo: the round metal medallion (assets/brand). The flat files in assets/brand/lineare stay for print only.
-LOGO_ROUND = "assets/brand/GP-logo-metallo-tondo"
+# official logo: the round metal logo without background (assets/brand): the light metal on the dark pages,
+# the dark metal on /chiaro/ (swapped in write_chiaro). The flat files in assets/brand/lineare stay for print only.
+LOGO_ROUND = "assets/brand/GP-logo-metallo-chiaro"
 FAVICON = "assets/brand/favicon"
 
 
 def logo_round(cls, size, eager=False):
-    """The round metal logo as WebP (160/320/640) with the PNG as fallback; size = the largest CSS width it is shown at."""
+    """The round metal logo (transparent) as WebP (160/320/640) with the PNG as fallback; size = the largest CSS width it is shown at."""
     load = 'fetchpriority="high"' if eager else 'loading="lazy"'
     return (f'<picture><source type="image/webp" sizes="{size}px" '
             f'srcset="{LOGO_ROUND}-160.webp 160w, {LOGO_ROUND}-320.webp 320w, {LOGO_ROUND}-640.webp 640w">'
@@ -54,6 +55,7 @@ LOGO_BAND = """    <section class="logo-band" aria-label="Logo GP METHOD">
 
 def write_chiaro(file, html):
     import re
+    html = html.replace("GP-logo-metallo-chiaro", "GP-logo-metallo-scuro")  # dark metal on avorio
     html = re.sub(r'(?<=["\s,])assets/', '../assets/', html)  # every local asset, srcset entries included
     html = html.replace('href="styles.css">', 'href="../styles.css">\n  <link rel="stylesheet" href="css/tema-chiaro.css">')
     html = html.replace('src="main.js"', 'src="../main.js"')
