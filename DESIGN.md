@@ -35,10 +35,10 @@ Forma: bottoni a pillola 52px (primario pietra/nero, secondario bordo bronzo/tes
 Motion: accensione dei neon USP (~600ms, una volta), poi la riga rossa "ronza" (tre cali ogni 4,5s, mai spenta) e fa un glitch di 1s al passaggio del mouse, al tocco e, sui telefoni, ogni volta che entra nello schermo (max 3 lampi/s, WCAG 2.3.1); i pilastri del metodo si aprono come "Cosa include" (stessa transizione 220ms); le tappe del ciclo mostrano una riga sotto (nessuna animazione), "Cosa include" (altezza + opacità, 220ms, `cubic-bezier(0.23,1,0.32,1)`), `scale(0.97)` su :active (160ms). Nessuno scroll-reveal; tutto il testo visibile senza JS.
 
 ## 2a. Hero a tutto schermo, foto da studio (ottobre 2026)
-Foto di Giorgia in studio su fondo neutro scuro (`assets/hero/`, `?v=7`): verticale 9:16 sotto 768px (`GP_hero_giorgia_mobile_studio`), 16:9 da 768px (`GP_hero_giorgia_desktop_studio`); WebP q82 con versioni leggere (900w / 1280w), JPG di riserva, `fetchpriority="high"` (è l'LCP). Le foto della palestra restano in "Dove nasce il metodo" e in Chi sono.
+Foto di Giorgia in studio su fondo neutro scuro (`assets/hero/`, `?v=8`): verticale (1920×3124) sotto 768px (`GP_hero_giorgia_mobile_studio`), 16:9 da 768px (`GP_hero_giorgia_desktop_studio`); WebP q82 con versioni leggere (mobile 900w/1280w, desktop 1280w), JPG di riserva, `fetchpriority="high"` (è l'LCP). Le foto della palestra restano in "Dove nasce il metodo" e in Chi sono.
 - La foto parte dal bordo superiore (sotto la barra di stato: `viewport-fit=cover`, header con `env(safe-area-inset-top)`); header trasparente sopra la foto, gradiente #191716 55% → trasparente in 140px; scorre via con la pagina.
 - Sotto 768px l'header mostra solo logo e menu.
-- Sotto 900px: foto alta 100svh (`object-position: 50% 20%`, 75% 25% da 768px), che sfuma in basso nel colore dell'hero; poi il testo.
+- Sotto 768px: foto alta 80svh (`object-position: 50% 20%`), così in fondo al primo schermo si vedono "Online coaching" e l'inizio del nome; 768-899px: 100svh (`75% 25%`). La foto sfuma in basso nel colore dell'hero; poi il testo.
 - Da 900px: foto a tutta larghezza e 100svh (`75% 25%`), testo a sinistra sul fondo scuro dello studio, velo leggero (35%) solo sotto il testo. In /chiaro/: testo su avorio a sinistra, foto a destra (55%, `80% 25%`) con bordo netto.
 - `theme-color` #191716 (scuro) / #EFE9E2 (chiaro), `apple-mobile-web-app-status-bar-style` black-translucent.
 Testo: "Giorgia Piras", "Personal trainer a Roma", filetto bronzo, una frase, bottone WhatsApp, riga Weal House.
