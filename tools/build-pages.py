@@ -5,6 +5,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://rodrigoapr01.github.io/gp-method/"
+# link preview (WhatsApp, Instagram, Facebook): the metal logo; bump ?v= when the image changes, WhatsApp caches hard
+OG_IMAGE = f"{BASE}assets/og/og-gp-method.jpg?v=2"
 
 WA_ICON = ('<svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
            '<path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" '
@@ -38,6 +40,7 @@ def wa_btn(msg, label, cls="btn btn--primary"):
 # ---------------------------------------------------------------- /chiaro/ (light preview for the client)
 # Same pages, same assets, same texts: only colours (chiaro/css/tema-chiaro.css) and the dark logos change.
 # noindex + canonical to the main site, since it is only a preview.
+# the metal logo on an avorio band, before "Iniziamo?" (home, both versions)
 LOGO_BAND = """    <section class="logo-band" aria-label="Logo GP METHOD">
       <picture>
         <source type="image/webp" srcset="assets/chiaro/logo-metallo-900.webp">
@@ -50,8 +53,6 @@ LOGO_BAND = """    <section class="logo-band" aria-label="Logo GP METHOD">
 
 def write_chiaro(file, html):
     import re
-    if file == "index.html":
-        html = html.replace('    <section class="close"', LOGO_BAND + '    <section class="close"', 1)
     html = html.replace("GP-monogramma-lineare_pietra.svg", "GP-monogramma-lineare_nero.svg")
     html = html.replace("GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg", "GP-METHOD-lineare_con-cerchio_trasparente-scuro.svg")
     html = re.sub(r'(?<=["\s,])assets/', '../assets/', html)  # every local asset, srcset entries included
@@ -84,11 +85,12 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{desc}">
   <meta property="og:url" content="{BASE}{'' if file == 'index.html' else file}">
-  <meta property="og:image" content="{BASE}assets/img/og.jpg">
+  <meta property="og:image" content="{OG_IMAGE}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="GP METHOD">
+  <meta property="og:image:alt" content="Logo GP METHOD">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{OG_IMAGE}">
   <link rel="icon" href="{BRAND}/svg/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="{BRAND}/png/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="{BRAND}/png/favicon-180.png">
@@ -255,7 +257,7 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
 
 {reviews('home')}
 
-    <section class="close" aria-labelledby="close-title">
+{LOGO_BAND}    <section class="close" aria-labelledby="close-title">
       <h2 id="close-title" class="title">Iniziamo?</h2>
       {wa_btn('Ciao Giorgia, vorrei iniziare GP METHOD.', 'Scrivimi su WhatsApp')}
     </section>"""

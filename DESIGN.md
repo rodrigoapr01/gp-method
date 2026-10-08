@@ -45,7 +45,9 @@ File usati così come sono, mai ridisegnati né ricolorati.
 - Header (tutte le pagine): monogramma `svg/GP-monogramma-lineare_pietra.svg` 34px (40px desktop) + "GP METHOD"; header sottile su mobile; sotto 360px solo il monogramma.
 - Footer: logo con cerchio, 180px (mai sotto 160px).
 - Regola: il logo con cerchio mai sotto i 160px; sotto si usa il monogramma.
-- Favicon: `svg/favicon.svg`, `png/favicon-32.png`, `png/favicon-180.png`. OG: `png/GP-METHOD-lineare_con-cerchio_scuro.png` centrato su #191716 (`tools/build-assets.py`).
+- Favicon: `svg/favicon.svg`, `png/favicon-32.png`, `png/favicon-180.png`.
+- Anteprima dei link (og:image e twitter:image, tutte le pagine anche /chiaro/): `assets/og/og-gp-method.jpg?v=2`, logo in metallo alto 600px su #E2D9D0, 1200×630 (`tools/build-assets.py`). Se cambia l'immagine, alzare `?v=` in `OG_IMAGE`.
+- Home (scura e chiara): fascia avorio #EFE9E2 con il logo in metallo (`assets/chiaro/logo-metallo-900.*`, bordi sfumati), min(80vw, 420px), prima di "Iniziamo?".
 
 ## 2c. Approfondimenti (ottobre 2026)
 - Metodo: ogni pilastro (Shape, Strength, Performance) è un bottone che apre una riga di dettaglio.
@@ -65,7 +67,7 @@ File usati così come sono, mai ridisegnati né ricolorati.
 Nella sezione di presentazione (`.who`): foto 4:5 seduta davanti all'insegna "Be stronger than your excuses" (`assets/chi-sono/`, WebP q82 900w/1920w + JPG), angoli 14px, `object-position: 50% 20%`. Mobile: a tutta larghezza sopra il testo, caricata subito (è nella prima schermata). Desktop: colonne 45/55, testo centrato in verticale.
 
 ## 2g. Anteprima chiara (/chiaro/, ottobre 2026)
-Generata da `tools/build-pages.py` (funzione `write_chiaro`) a partire dalle stesse pagine: stessi testi, foto e struttura, asset con `../`, `noindex` e canonical verso la versione principale. Colori in `chiaro/css/tema-chiaro.css`, caricato dopo `styles.css`: avorio #EFE9E2, sezioni #E4DCD3, testo espresso #2E2620 (secondario #6B5E54), bronzo #8A6E58, linee champagne #B9A796. La fascia neon resta #191716. Loghi scuri (monogramma nero, cerchio trasparente-scuro); in home una fascia con il logo in metallo (`assets/chiaro/logo-metallo-900.*`). La versione scura non cambia.
+Generata da `tools/build-pages.py` (funzione `write_chiaro`) a partire dalle stesse pagine: stessi testi, foto e struttura, asset con `../`, `noindex` e canonical verso la versione principale. Colori in `chiaro/css/tema-chiaro.css`, caricato dopo `styles.css`: avorio #EFE9E2, sezioni #E4DCD3, testo espresso #2E2620 (secondario #6B5E54), bronzo #8A6E58, linee champagne #B9A796. La fascia neon resta #191716. Loghi scuri (monogramma nero, cerchio trasparente-scuro). La versione scura non cambia.
 
 ## 3. Elemento firma: il neon
 Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, bagliore freddo) alternate a parole rosse piene (Jost 500 maiuscolo, #FF3B2F, bagliore rosso con text-shadow a più livelli; niente text-stroke, che disegnava linee dove i tratti delle lettere si sovrappongono). Un solo punto: la USP della home, che dall'ottobre 2026 è solo la frase "Non devi scegliere / tra estetica / e performance." resa come l'insegna "Be stronger than your excuses" (bianco, rosso a tubo, bianco), centrata; le tre righe inglesi BUILD/DEVELOP/ELEVATE sono state tolte. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).

@@ -50,16 +50,6 @@
 .map-frame { background: var(--sezione); }
 .map-frame iframe { filter: grayscale(1) contrast(0.95); }
 
-/* home: the metal logo, centred on an avorio band */
-.logo-band { display: grid; place-items: center; padding: var(--section) var(--gutter); background: #EFE9E2; }
-.logo-band picture { display: block; width: 80%; max-width: 420px; }
-.logo-band img {
-  display: block; width: 100%; height: auto;
-  /* the render has a slightly darker square backdrop: fade it outside the ring so it melts into the band */
-  -webkit-mask-image: radial-gradient(circle closest-side, #000 94%, transparent 100%);
-  mask-image: radial-gradient(circle closest-side, #000 94%, transparent 100%);
-}
-
 @media (hover: hover) and (pointer: fine) {
   .btn--primary:hover { background: #000; }
   .btn--dark:hover { background: #000; }
