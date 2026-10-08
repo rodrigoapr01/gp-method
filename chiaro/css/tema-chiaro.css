@@ -34,12 +34,16 @@
   color: #E0E2DB;
 }
 
-/* hero photo on phones: fades into avorio (transparent avorio stops, so no grey band) */
-.hero-photo::after { background: linear-gradient(180deg, #EFE9E2 0%, rgba(239, 233, 226, 0) 12%, rgba(239, 233, 226, 0) 80%, #EFE9E2 100%); }
+/* hero photo on phones: fades into avorio at the bottom (transparent avorio stops, so no grey band) */
+.hero-photo::after { background: linear-gradient(180deg, rgba(239, 233, 226, 0) 0%, rgba(239, 233, 226, 0) 62%, #EFE9E2 100%); }
 
-/* header: solid avorio everywhere */
-.top { background: var(--nero); padding-bottom: 12px; }
+/* header: solid avorio on the inner pages; on the home it floats over the photo (see the hero rules) */
+.is-inner .top { background: var(--nero); padding-bottom: 12px; }
 .menu-btn span { background: var(--pietra); }
+/* home on phones: header over the photo, light on the dark gradient (light metal logo, see build-pages) */
+@media (max-width: 899px) {
+  .is-home .top .menu-btn span { background: #E0E2DB; }
+}
 
 /* buttons: primary espresso / avorio, secondary bronze border */
 .btn--primary { background: #2E2620; color: #EFE9E2; }
@@ -55,11 +59,13 @@
   .btn--dark:hover { background: #000; }
 }
 
-/* desktop hero: split, text on avorio at left, Giorgia at right (~55%), no dark gradient */
+/* desktop hero: split, text on avorio at left, Giorgia at right (~55%) from the very top, header floating over both:
+   dark metal logo on avorio, light nav over the photo with a soft dark gradient on the photo's top */
 @media (min-width: 900px) {
-  .is-home .top { position: relative; background: var(--nero); padding-bottom: 12px; }
-  .hero { min-height: calc(100vh - 104px); min-height: calc(100svh - 104px); }
-  .hero-copy { padding: 64px 0; }
+  .is-home .top::before { display: none; }
+  .is-home .top-nav a, .is-home .top .top-wa { color: #E0E2DB; }
   .hero-photo { left: 45%; }
-  .hero-photo::after { background: linear-gradient(90deg, #EFE9E2 0%, rgba(239, 233, 226, 0) 10%); }
+  .hero-photo::after { background:
+    linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0) 140px),
+    linear-gradient(90deg, #EFE9E2 0%, rgba(239, 233, 226, 0) 10%); }
 }

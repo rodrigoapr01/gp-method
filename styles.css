@@ -110,6 +110,8 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .brand picture, .brand-logo { display: block; }
 .brand-logo { width: 64px; height: 64px; }
 .top-wa, .menu-btn { flex-shrink: 0; }
+/* phones: only logo and menu in the header (WhatsApp is in the hero, the menu and the fixed button) */
+@media (max-width: 767px) { .top .top-wa { display: none; } }
 .top-nav { display: none; }
 .top-wa { display: inline-flex; }
 .menu-btn {
@@ -144,16 +146,21 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 
 /* ---------- Home: hero (Giorgia at Weal House) ---------- */
 
-/* phones and tablets: solid header, the photo right under it, then the copy */
-.is-home .top { position: relative; background: var(--nero); padding-bottom: 12px; }
+/* full-screen hero: the photo starts at the very top (under the status bar, viewport-fit=cover) and the
+   header floats over it, transparent, on a soft dark gradient so logo and menu read on any photo */
+.is-home .top::before {
+  content: ''; position: absolute; inset: 0 0 auto 0; z-index: -1; pointer-events: none;
+  height: calc(env(safe-area-inset-top, 0px) + 140px);
+  background: linear-gradient(180deg, rgba(25, 23, 22, 0.55) 0%, rgba(25, 23, 22, 0) 100%);
+}
+/* phones and tablets: photo first (at least 85svh), the copy below; the photo fades into the hero colour */
 .hero { display: grid; padding: 0 var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 32px); }
-.hero-photo { position: relative; order: -1; margin: 0 calc(var(--gutter) * -1) 28px; aspect-ratio: 5 / 4; }
-.hero-photo picture { display: block; height: 100%; }
-.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-/* fades into nero: ~12% at the top, ~20% at the bottom */
+.hero-photo { position: relative; order: -1; margin: 0 calc(var(--gutter) * -1) 28px; min-height: 85vh; min-height: 85svh; }
+.hero-photo picture { position: absolute; inset: 0; display: block; }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 60% 0%; }
 .hero-photo::after { content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, var(--nero) 0%, rgba(25, 23, 22, 0) 12%, rgba(25, 23, 22, 0) 80%, var(--nero) 100%); }
-@media (min-width: 768px) { .hero-photo { aspect-ratio: 4 / 3; } }
+  background: linear-gradient(180deg, rgba(25, 23, 22, 0) 0%, rgba(25, 23, 22, 0) 62%, var(--nero) 100%); }
+@media (min-width: 768px) { .hero-photo img { object-position: 70% 0%; } }
 .hero-copy { display: grid; gap: 18px; justify-items: start; }
 .hero .kicker { margin: 0; }
 .hero-name { margin: 0; font-family: var(--serif); font-weight: 500; font-size: clamp(52px, 19vw, 120px); line-height: 0.92; letter-spacing: -0.01em; }
@@ -490,10 +497,9 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
   .top-nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--bronzo); }
 
   /* desktop: the 4:3 photo fills the hero, Giorgia on the right, the copy on the left over a dark gradient */
-  .is-home .top { position: absolute; background: none; padding-bottom: 0; }
   .hero { position: relative; min-height: 100vh; min-height: 100svh; padding: 0 max(var(--gutter), calc((100% - var(--max)) / 2)); isolation: isolate; }
   .hero-copy { align-self: center; max-width: min(40vw, 600px); padding: 140px 0 56px; }
-  .hero-photo { position: absolute; inset: 0; z-index: -1; margin: 0; aspect-ratio: auto; }
+  .hero-photo { position: absolute; inset: 0; z-index: -1; margin: 0; min-height: 0; }
   .hero-photo img { object-position: 70% 20%; }
   .hero-photo::after { background:
     linear-gradient(90deg, rgba(25, 23, 22, 0.85) 0%, rgba(25, 23, 22, 0.85) 36%, rgba(25, 23, 22, 0) 55%),

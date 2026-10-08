@@ -17,6 +17,7 @@ WA_ICON = ('<svg class="i-wa" viewBox="0 0 24 24" aria-hidden="true" focusable="
 # official logo: the round metal logo without background (assets/brand): the light metal on the dark pages,
 # the dark metal on /chiaro/ (swapped in write_chiaro). The flat files in assets/brand/lineare stay for print only.
 LOGO_ROUND = "assets/brand/GP-logo-metallo-chiaro"
+LOGO_DARK = "assets/brand/GP-logo-metallo-scuro"
 FAVICON = "assets/brand/favicon"
 
 
@@ -46,7 +47,15 @@ def wa_btn(msg, label, cls="btn btn--primary"):
 
 def write_chiaro(file, html):
     import re
+    if file == "index.html":
+        # home header: over the photo on phones (light metal), over avorio from 900px (dark metal)
+        a = html.index('<header class="top">'); b = html.index('</header>', a)
+        head = html[a:b].replace('<picture><source type="image/webp"',
+                                 '<picture><source media="(min-width: 900px)" type="image/webp" sizes="80px" srcset="'
+                                 f'{LOGO_DARK}-160.webp 160w, {LOGO_DARK}-320.webp 320w, {LOGO_DARK}-640.webp 640w"><source type="image/webp"', 1)
+        html = html[:a] + head.replace("GP-logo-metallo-chiaro", "@@KEEP@@") + html[b:]
     html = html.replace("GP-logo-metallo-chiaro", "GP-logo-metallo-scuro")  # dark metal on avorio
+    html = html.replace("@@KEEP@@", "GP-logo-metallo-chiaro")
     html = re.sub(r'(?<=["\s,])assets/', '../assets/', html)  # every local asset, srcset entries included
     html = html.replace('href="styles.css">', 'href="../styles.css">\n  <link rel="stylesheet" href="css/tema-chiaro.css">')
     html = html.replace('src="main.js"', 'src="../main.js"')
@@ -69,6 +78,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
   <title>{title}</title>
   <meta name="description" content="{desc}">
   <meta name="theme-color" content="#191716">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="color-scheme" content="dark">
   <link rel="canonical" href="{BASE}{'' if file == 'index.html' else file}">
   <meta property="og:type" content="website">
@@ -196,10 +206,10 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
       </div>
       <figure class="hero-photo">
         <picture>
-          <source media="(max-width: 767px)" type="image/webp" srcset="assets/hero/GP_hero_giorgia_mobile_5x4-900.webp?v=4 900w, assets/hero/GP_hero_giorgia_mobile_5x4.webp?v=4 2180w" sizes="100vw" width="2180" height="1744">
-          <source media="(max-width: 767px)" srcset="assets/hero/GP_hero_giorgia_mobile_5x4.jpg?v=4" width="2180" height="1744">
-          <source type="image/webp" srcset="assets/hero/GP_hero_giorgia_4x3-1280.webp?v=4 1280w, assets/hero/GP_hero_giorgia_4x3.webp?v=4 2336w" sizes="100vw" width="2336" height="1744">
-          <img src="assets/hero/GP_hero_giorgia_4x3.jpg?v=4" width="2336" height="1744" alt="Giorgia Piras, personal trainer, nella palestra Weal House a Roma" fetchpriority="high" decoding="async">
+          <source media="(max-width: 767px)" type="image/webp" srcset="assets/hero/GP_hero_giorgia_mobile_4x5-900.webp?v=5 900w, assets/hero/GP_hero_giorgia_mobile_4x5.webp?v=5 1395w" sizes="100vw" width="1395" height="1744">
+          <source media="(max-width: 767px)" srcset="assets/hero/GP_hero_giorgia_mobile_4x5.jpg?v=5" width="1395" height="1744">
+          <source type="image/webp" srcset="assets/hero/GP_hero_giorgia_4x3-1280.webp?v=5 1280w, assets/hero/GP_hero_giorgia_4x3.webp?v=5 2336w" sizes="100vw" width="2336" height="1744">
+          <img src="assets/hero/GP_hero_giorgia_4x3.jpg?v=5" width="2336" height="1744" alt="Giorgia Piras, personal trainer, nella palestra Weal House a Roma" fetchpriority="high" decoding="async">
         </picture>
       </figure>
     </section>

@@ -34,11 +34,14 @@ Tipografia: **Cormorant Garamond** 500 per titoli e numeri (è il carattere di M
 Forma: bottoni a pillola 52px (primario pietra/nero, secondario bordo bronzo/testo pietra); card e foto con raggio 14px; filetti 1px bronzo.
 Motion: accensione dei neon USP (~600ms, una volta), poi la riga rossa "ronza" (tre cali ogni 4,5s, mai spenta) e fa un glitch di 1s al passaggio del mouse, al tocco e, sui telefoni, ogni volta che entra nello schermo (max 3 lampi/s, WCAG 2.3.1); i pilastri del metodo si aprono come "Cosa include" (stessa transizione 220ms); le tappe del ciclo mostrano una riga sotto (nessuna animazione), "Cosa include" (altezza + opacità, 220ms, `cubic-bezier(0.23,1,0.32,1)`), `scale(0.97)` su :active (160ms). Nessuno scroll-reveal; tutto il testo visibile senza JS.
 
-## 2a. Hero (ottobre 2026)
-Foto di Giorgia a Weal House (`assets/hero/`): 5:4 sotto 768px, 4:3 da 768px; WebP q82 con versioni leggere (900w / 1280w), JPG di riserva, `fetchpriority="high"` (è l'LCP).
-- Sotto 900px: header pieno #191716, foto subito sotto a tutta larghezza, sfumata in nero (12% sopra, 20% sotto), poi testo.
-- Da 900px: foto a tutta larghezza dell'hero (`object-position: 70% 20%`), Giorgia a destra, testo a sinistra su gradiente scuro.
-Testo: "Giorgia Piras", "Personal trainer a Roma", filetto bronzo, una frase, un bottone, riga Weal House.
+## 2a. Hero a tutto schermo (ottobre 2026)
+Foto di Giorgia a Weal House (`assets/hero/`, `?v=5`): 4:5 sotto 768px, 4:3 da 768px; WebP q82 con versioni leggere (900w / 1280w), JPG di riserva, `fetchpriority="high"` (è l'LCP).
+- La foto parte dal bordo superiore (sotto la barra di stato: `viewport-fit=cover`, header con `env(safe-area-inset-top)`); l'header è trasparente sopra la foto, con un gradiente #191716 55% → trasparente in 140px. Scorre via con la pagina (non è fisso).
+- Sotto 768px l'header mostra solo logo e menu ("Scrivimi" è nell'hero, nel menu e nel bottone fisso).
+- Sotto 900px: foto alta almeno 85svh (`object-position: 60% 0`, 70% da 768px), che sfuma in basso nel colore dell'hero; poi il testo.
+- Da 900px: foto a tutta larghezza e 100svh, testo a sinistra sul gradiente scuro. In /chiaro/: foto a destra (55%) dal bordo superiore, logo scuro su avorio, nav chiara sopra la foto.
+- `theme-color` #191716 (scuro) / #EFE9E2 (chiaro), `apple-mobile-web-app-status-bar-style` black-translucent.
+Testo: "Giorgia Piras", "Personal trainer a Roma", filetto bronzo, una frase, bottone WhatsApp, riga Weal House.
 
 ## 2b. Logo ufficiale: tondo in metallo, senza sfondo (ottobre 2026)
 `assets/brand/GP-logo-metallo-chiaro.*` (metallo chiaro) nelle pagine scure, `GP-logo-metallo-scuro.*` (metallo scuro) in /chiaro/; PNG trasparente + WebP 160/320/640 con srcset, alt "GP METHOD", width/height espliciti.
