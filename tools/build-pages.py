@@ -42,15 +42,6 @@ def wa_btn(msg, label, cls="btn btn--primary"):
 # ---------------------------------------------------------------- /chiaro/ (light preview for the client)
 # Same pages, same assets, same texts, same logo: only the colours change (chiaro/css/tema-chiaro.css).
 # noindex + canonical to the main site, since it is only a preview.
-# the metal logo on an avorio band, before "Iniziamo?" (home, both versions)
-LOGO_BAND = """    <section class="logo-band" aria-label="Logo GP METHOD">
-      <picture>
-        <source type="image/webp" srcset="assets/chiaro/logo-metallo-900.webp">
-        <img src="assets/chiaro/logo-metallo-900.jpg" width="900" height="900" alt="Logo GP METHOD" loading="lazy" decoding="async">
-      </picture>
-    </section>
-
-"""
 
 
 def write_chiaro(file, html):
@@ -259,7 +250,7 @@ home = f"""    <section class="hero" aria-labelledby="hero-title">
 
 {reviews('home')}
 
-{LOGO_BAND}    <section class="close" aria-labelledby="close-title">
+    <section class="close" aria-labelledby="close-title">
       <h2 id="close-title" class="title">Iniziamo?</h2>
       {wa_btn('Ciao Giorgia, vorrei iniziare GP METHOD.', 'Scrivimi su WhatsApp')}
     </section>"""

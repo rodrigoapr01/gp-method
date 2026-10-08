@@ -327,17 +327,6 @@ h1 { font-size: clamp(40px, 10.6vw, 84px); line-height: 1.02; text-wrap: balance
 .faq .more-panel .text-link { color: var(--pietra); }
 .preview-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px; }
 
-/* ---------- Home: the metal logo on an avorio band, before "Iniziamo?" ---------- */
-
-.logo-band { display: grid; place-items: center; padding: calc(var(--section) * 1.25) var(--gutter); background: #EFE9E2; }
-.logo-band picture { display: block; width: min(80vw, 420px); }
-.logo-band img {
-  display: block; width: 100%; height: auto;
-  /* the render has a slightly darker square backdrop: fade it outside the ring so it melts into the band */
-  -webkit-mask-image: radial-gradient(circle closest-side, #000 94%, transparent 100%);
-  mask-image: radial-gradient(circle closest-side, #000 94%, transparent 100%);
-}
-
 /* ---------- Reviews: Weal House on Google ---------- */
 
 .reviews { display: grid; justify-items: start; gap: 14px; padding: var(--section) var(--gutter); }

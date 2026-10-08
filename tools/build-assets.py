@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     n = 600
-    logo = Image.open(ROOT / "assets/chiaro/logo-metallo-900.jpg").convert("RGB").resize((n, n), Image.LANCZOS)
+    logo = Image.open(ROOT / "assets/og/logo-metallo-sorgente.jpg").convert("RGB").resize((n, n), Image.LANCZOS)
     # circular fade, as on the home band: opaque to 94% of the radius, transparent at the edge
     y, x = np.mgrid[0:n, 0:n]
     r = np.hypot(x - (n - 1) / 2, y - (n - 1) / 2) / (n / 2)

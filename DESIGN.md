@@ -47,8 +47,7 @@ Testo: "Giorgia Piras", "Personal trainer a Roma", filetto bronzo, una frase, un
 - Footer: logo tondo 140px mobile / 160px desktop.
 - Favicon (`assets/brand/favicon/`), dalla versione chiara: favicon-32 trasparente; favicon-180 (apple-touch-icon) e favicon-512 su #191716, perché i telefoni non vogliono trasparenza.
 - I loghi piatti in `assets/brand/lineare/` restano per la stampa, ma non sono usati nelle pagine.
-- Anteprima dei link (og:image e twitter:image, tutte le pagine anche /chiaro/): `assets/og/og-gp-method.jpg?v=2`, logo in metallo alto 600px su #E2D9D0, 1200×630 (`tools/build-assets.py`). Se cambia l'immagine, alzare `?v=` in `OG_IMAGE`.
-- Home (scura e chiara): fascia avorio #EFE9E2 con il logo in metallo (`assets/chiaro/logo-metallo-900.*`, bordi sfumati), min(80vw, 420px), prima di "Iniziamo?".
+- Anteprima dei link (og:image e twitter:image, tutte le pagine anche /chiaro/): `assets/og/og-gp-method.jpg?v=2`, logo in metallo alto 600px su #E2D9D0, 1200×630 (`tools/build-assets.py`, sorgente `assets/og/logo-metallo-sorgente.jpg`). Se cambia l'immagine, alzare `?v=` in `OG_IMAGE`.
 
 ## 2c. Approfondimenti (ottobre 2026)
 - Metodo: ogni pilastro (Shape, Strength, Performance) è un bottone che apre una riga di dettaglio.
