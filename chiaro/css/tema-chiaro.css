@@ -1,0 +1,75 @@
+/* GP METHOD, light preview (/chiaro/). Loaded after ../styles.css: same layout, only colours.
+   The base sheet names its tokens by colour (--nero = background, --pietra = text), so the light theme
+   swaps them: avorio background, espresso text. Inside .light sections they swap back to a second tone.
+
+   Contrast on #EFE9E2: espresso #2E2620 12.3:1, secondary #6B5E54 5.2:1, bronzo #8A6E58 3.9:1 (large text only).
+   On #E4DCD3: espresso 10.9:1, secondary 4.6:1, bronzo 3.5:1 (large text only). */
+
+:root {
+  --nero: #EFE9E2;          /* avorio: page background */
+  --pietra: #2E2620;        /* espresso: text, primary buttons */
+  --pietra-2: #6B5E54;      /* secondary text */
+  --nero-2: #6B5E54;
+  --line: #B9A796;          /* champagne: thin rules and borders */
+  --sezione: #E4DCD3;       /* alternate sections */
+}
+
+/* the alternate sections: #E4DCD3 with espresso text; their dark buttons stay espresso */
+.light {
+  --nero: #2E2620;
+  --pietra: #E4DCD3;
+  --nero-2: #6B5E54;
+  --line: #B9A796;
+  background: var(--sezione);
+  color: #2E2620;
+}
+
+/* the neon only works on black: this band stays dark, with the original tokens */
+.usp {
+  --nero: #191716;
+  --pietra: #E0E2DB;
+  --pietra-2: rgba(224, 226, 219, 0.75);
+  --line: rgba(224, 226, 219, 0.18);
+  background: #191716;
+  color: #E0E2DB;
+}
+
+/* hero photo on phones: fades into avorio (transparent avorio stops, so no grey band) */
+.hero-photo::after { background: linear-gradient(180deg, #EFE9E2 0%, rgba(239, 233, 226, 0) 12%, rgba(239, 233, 226, 0) 80%, #EFE9E2 100%); }
+
+/* header: solid avorio everywhere */
+.top { background: var(--nero); padding-bottom: 12px; }
+.menu-btn span { background: var(--pietra); }
+
+/* buttons: primary espresso / avorio, secondary bronze border */
+.btn--primary { background: #2E2620; color: #EFE9E2; }
+.btn--secondary { color: #2E2620; }
+.fab { box-shadow: 0 6px 20px rgba(46, 38, 32, 0.25); }
+
+/* the map: no dark inversion on a light page */
+.map-frame { background: var(--sezione); }
+.map-frame iframe { filter: grayscale(1) contrast(0.95); }
+
+/* home: the metal logo, centred on an avorio band */
+.logo-band { display: grid; place-items: center; padding: var(--section) var(--gutter); background: #EFE9E2; }
+.logo-band picture { display: block; width: 80%; max-width: 420px; }
+.logo-band img {
+  display: block; width: 100%; height: auto;
+  /* the render has a slightly darker square backdrop: fade it outside the ring so it melts into the band */
+  -webkit-mask-image: radial-gradient(circle closest-side, #000 94%, transparent 100%);
+  mask-image: radial-gradient(circle closest-side, #000 94%, transparent 100%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover { background: #000; }
+  .btn--dark:hover { background: #000; }
+}
+
+/* desktop hero: split, text on avorio at left, Giorgia at right (~55%), no dark gradient */
+@media (min-width: 900px) {
+  .is-home .top { position: relative; background: var(--nero); padding-bottom: 12px; }
+  .hero { min-height: calc(100vh - 68px); min-height: calc(100svh - 68px); }
+  .hero-copy { padding: 64px 0; }
+  .hero-photo { left: 45%; }
+  .hero-photo::after { background: linear-gradient(90deg, #EFE9E2 0%, rgba(239, 233, 226, 0) 10%); }
+}

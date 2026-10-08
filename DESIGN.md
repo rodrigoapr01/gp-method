@@ -64,6 +64,9 @@ File usati così come sono, mai ridisegnati né ricolorati.
 ## 2f. Chi sono: foto di Giorgia (ottobre 2026)
 Nella sezione di presentazione (`.who`): foto 4:5 seduta davanti all'insegna "Be stronger than your excuses" (`assets/chi-sono/`, WebP q82 900w/1920w + JPG), angoli 14px, `object-position: 50% 20%`. Mobile: a tutta larghezza sopra il testo, caricata subito (è nella prima schermata). Desktop: colonne 45/55, testo centrato in verticale.
 
+## 2g. Anteprima chiara (/chiaro/, ottobre 2026)
+Generata da `tools/build-pages.py` (funzione `write_chiaro`) a partire dalle stesse pagine: stessi testi, foto e struttura, asset con `../`, `noindex` e canonical verso la versione principale. Colori in `chiaro/css/tema-chiaro.css`, caricato dopo `styles.css`: avorio #EFE9E2, sezioni #E4DCD3, testo espresso #2E2620 (secondario #6B5E54), bronzo #8A6E58, linee champagne #B9A796. La fascia neon resta #191716. Loghi scuri (monogramma nero, cerchio trasparente-scuro); in home una fascia con il logo in metallo (`assets/chiaro/logo-metallo-900.*`). La versione scura non cambia.
+
 ## 3. Elemento firma: il neon
 Dalle foto `neon-stronger-*`: parole bianche sottili (Jost 300, bagliore freddo) alternate a parole rosse piene (Jost 500 maiuscolo, #FF3B2F, bagliore rosso con text-shadow a più livelli; niente text-stroke, che disegnava linee dove i tratti delle lettere si sovrappongono). Un solo punto: la USP della home, che dall'ottobre 2026 è solo la frase "Non devi scegliere / tra estetica / e performance." resa come l'insegna "Be stronger than your excuses" (bianco, rosso a tubo, bianco), centrata; le tre righe inglesi BUILD/DEVELOP/ELEVATE sono state tolte. Il testo è sempre acceso senza JS; con JS il bagliore parte spento e si accende con due micro-tremolii quando la sezione entra in vista. "JUST DO IT" non è usato (marchio Nike; la foto è esclusa dal sito).
 

@@ -35,6 +35,34 @@ def wa_btn(msg, label, cls="btn btn--primary"):
     return f'<a class="{cls}" data-wa="{msg}" href="#contatti">{WA_ICON}<span>{label}</span></a>'
 
 
+# ---------------------------------------------------------------- /chiaro/ (light preview for the client)
+# Same pages, same assets, same texts: only colours (chiaro/css/tema-chiaro.css) and the dark logos change.
+# noindex + canonical to the main site, since it is only a preview.
+LOGO_BAND = """    <section class="logo-band" aria-label="Logo GP METHOD">
+      <picture>
+        <source type="image/webp" srcset="assets/chiaro/logo-metallo-900.webp">
+        <img src="assets/chiaro/logo-metallo-900.jpg" width="900" height="900" alt="Logo GP METHOD" loading="lazy" decoding="async">
+      </picture>
+    </section>
+
+"""
+
+
+def write_chiaro(file, html):
+    import re
+    if file == "index.html":
+        html = html.replace('    <section class="close"', LOGO_BAND + '    <section class="close"', 1)
+    html = html.replace("GP-monogramma-lineare_pietra.svg", "GP-monogramma-lineare_nero.svg")
+    html = html.replace("GP-METHOD-lineare_con-cerchio_trasparente-chiaro.svg", "GP-METHOD-lineare_con-cerchio_trasparente-scuro.svg")
+    html = re.sub(r'(?<=["\s,])assets/', '../assets/', html)  # every local asset, srcset entries included
+    html = html.replace('href="styles.css">', 'href="../styles.css">\n  <link rel="stylesheet" href="css/tema-chiaro.css">')
+    html = html.replace('src="main.js"', 'src="../main.js"')
+    html = html.replace('<meta name="theme-color" content="#191716">', '<meta name="theme-color" content="#EFE9E2">')
+    html = html.replace('<meta name="color-scheme" content="dark">', '<meta name="color-scheme" content="light">\n  <meta name="robots" content="noindex">')
+    (ROOT / "chiaro").mkdir(exist_ok=True)
+    (ROOT / "chiaro" / file).write_text(html)
+
+
 def page(file, title, desc, body, wa_msg, extra_head="", home=False):
     nav = [("index.html#metodo", "Metodo"), ("livelli.html", "Livelli"), ("chi-sono.html", "Chi sono")]
     current = {"livelli.html": "Livelli", "chi-sono.html": "Chi sono"}.get(file)
@@ -102,6 +130,7 @@ def page(file, title, desc, body, wa_msg, extra_head="", home=False):
 </html>
 """
     (ROOT / file).write_text(html)
+    write_chiaro(file, html)
 
 
 # the four stages of a cycle; tapping one shows its line under the row.
